@@ -4,17 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e358c1a8-ea1b-452f-8bd2-6be43fdaf8b0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/controller/LoginController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/helper/JDBC.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/view/login-view.fxml" afterDir="false" />
+    <list default="true" id="e358c1a8-ea1b-452f-8bd2-6be43fdaf8b0" name="Changes" comment="Connection success - Login form success">
+      <change beforePath="$PROJECT_DIR$/src/main/resources/view/login-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/login-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,6 +67,14 @@
       <option name="presentableId" value="Default" />
       <updated>1661794837027</updated>
     </task>
+    <task id="LOCAL-00001" summary="Connection success - Login form success">
+      <created>1661803416482</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1661803416482</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -88,5 +87,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Connection success - Login form success" />
+    <option name="LAST_COMMIT_MESSAGE" value="Connection success - Login form success" />
   </component>
 </project>
