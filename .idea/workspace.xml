@@ -4,11 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e358c1a8-ea1b-452f-8bd2-6be43fdaf8b0" name="Changes" comment="Connection success - Login form success">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+    <list default="true" id="e358c1a8-ea1b-452f-8bd2-6be43fdaf8b0" name="Changes" comment="Views &amp; Controllers created">
+      <change afterPath="$PROJECT_DIR$/src/main/java/Utilities/CustomersQuery.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/helper/JDBC.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/JDBC.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/view/customers-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/customers-view.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/view/login-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/login-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -20,8 +21,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JavaFXApplication" />
-        <option value="Class" />
         <option value="FxmlFile" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -45,7 +46,8 @@
     &quot;last_opened_file_path&quot;: &quot;D:/mysql-connector-java-8.0.29/mysql-connector-java-8.0.29.jar&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;
   }
 }</component>
   <component name="RecentsManager">
@@ -79,7 +81,14 @@
       <option name="project" value="LOCAL" />
       <updated>1661803416482</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Views &amp; Controllers created">
+      <created>1661831797130</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1661831797130</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -95,6 +104,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Connection success - Login form success" />
-    <option name="LAST_COMMIT_MESSAGE" value="Connection success - Login form success" />
+    <MESSAGE value="Views &amp; Controllers created" />
+    <option name="LAST_COMMIT_MESSAGE" value="Views &amp; Controllers created" />
   </component>
 </project>

@@ -1,7 +1,10 @@
 package controller;
 
+import Utilities.CustomersQuery;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
+
+import java.sql.SQLException;
 
 public class AddModCustomerController {
     public Label addModifyCustomerLbl;
@@ -19,7 +22,14 @@ public class AddModCustomerController {
     public void filterFirstDiv(ActionEvent actionEvent) {
     }
 
-    public void onSaveCustomer(ActionEvent actionEvent) {
+    public void onSaveCustomer(ActionEvent actionEvent) throws SQLException {
+        String customerName = customerNameTxt.getText();
+        String address = addressTxt.getText();
+        String postalCode = postalCodeTxt.getText();
+        String phone = phoneNumberTxt.getText();
+        int divisionId = (int) firstDivCombo.getSelectionModel().getSelectedItem();
+        int rowsAffected = CustomersQuery.insert(customerName, address, postalCode, phone, divisionId);
+
     }
 
     public void onCancel(ActionEvent actionEvent) {

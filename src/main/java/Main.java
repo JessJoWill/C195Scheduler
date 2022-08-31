@@ -1,4 +1,5 @@
 import DAO.JDBC;
+import Utilities.CustomersQuery;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -6,12 +7,19 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class Main extends Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         JDBC.openConnection();
-        launch(args);
+/*
+        int rowsAffected = CustomersQuery.delete(4);
+        int rowsAffected = CustomersQuery.insert("Alejandro Mills", "344 Maple Drive, Jackson", "56223", "555-555-5555", "Jess", 29);
+        CustomersQuery.select();
+*/
+
+        JDBC.closeConnection();
     }
 
     @Override
