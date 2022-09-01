@@ -48,6 +48,10 @@ public abstract class CustomersQuery {
         while(rs.next()){
             int customerId = rs.getInt("Customer_ID");
             String customerName = rs.getString("Customer_Name");
+            String address = rs.getString("Address");
+            String postalCode = rs.getString("Postal_Code");
+            String phone = rs.getString("Phone");
+            int divisionId = rs.getInt("Division_ID");
 
             System.out.print(customerId + " | ");
             System.out.print(customerName + "\n");

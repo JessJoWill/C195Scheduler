@@ -1,7 +1,14 @@
 package controller;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class CustomersController {
     public TextField customerSearchTxt;
@@ -23,7 +30,13 @@ public class CustomersController {
     public void onSearchCustomers(ActionEvent actionEvent) {
     }
 
-    public void onAddCustomer(ActionEvent actionEvent) {
+    public void onAddCustomer(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/view/add-mod-customer-view.fxml"));
+        Stage primaryStage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root, 1000, 645);
+        primaryStage.setTitle("Scheduler");
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 
     public void onUpdateCustomer(ActionEvent actionEvent) {

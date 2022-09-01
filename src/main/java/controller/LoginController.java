@@ -36,7 +36,7 @@ public class LoginController implements Initializable {
         Parent root = FXMLLoader.load(getClass().getResource("/view/customers-view.fxml"));
         Stage primaryStage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(root, 1000, 645);
-        primaryStage.setTitle("Inventory Management");
+        primaryStage.setTitle("Scheduler");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
