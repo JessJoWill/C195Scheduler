@@ -8,8 +8,7 @@ public class Customer {
     String phone;
     int divisionId;
 
-    public Customer(int customerId, String customerName, String address, String postalCode, String phone, int divisionId) {
-        this.customerId = customerId;
+    public Customer(String customerName, String address, String postalCode, String phone, int divisionId) {
         this.customerName = customerName;
         this.address = address;
         this.postalCode = postalCode;
@@ -19,10 +18,6 @@ public class Customer {
 
     public int getCustomerId() {
         return customerId;
-    }
-
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
     }
 
     public String getCustomerName() {

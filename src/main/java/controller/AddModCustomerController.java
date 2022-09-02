@@ -4,11 +4,17 @@ import Utilities.CountriesQuery;
 import Utilities.CustomersQuery;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 import model.TheCountry;
 import model.FirstLvlDivision;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -56,7 +62,7 @@ public class AddModCustomerController implements Initializable {
             }
     }
 
-    public void onSaveCustomer(ActionEvent actionEvent) throws SQLException {
+    public void onSaveCustomer(ActionEvent actionEvent) throws SQLException, IOException {
         String customerName = customerNameTxt.getText();
         String address = addressTxt.getText();
         String postalCode = postalCodeTxt.getText();
@@ -64,6 +70,16 @@ public class AddModCustomerController implements Initializable {
         int divisionId = (int) firstDivCombo.getSelectionModel().getSelectedItem().getDivisionId();
         int rowsAffected = CustomersQuery.insert(customerName, address, postalCode, phone, divisionId);
 
+        if(rowsAffected == 0){
+            System.out.println("Something went wrong.");
+        }
+        // Back to main screen
+        Parent root = FXMLLoader.load(getClass().getResource("/view/customers-view.fxml"));
+        Stage primaryStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root, 1000, 645);
+        primaryStage.setTitle("Scheduler");
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 
     public void onCancel(ActionEvent actionEvent) {

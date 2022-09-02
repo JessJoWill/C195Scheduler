@@ -10,7 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class DivisionsQuery {
+public abstract class DivisionsQuery {
     public static int insert(String division) throws SQLException {
         String sql = "INSERT INTO first_level_divisions (Division) VALUES (?)";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);

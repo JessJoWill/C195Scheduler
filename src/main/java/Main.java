@@ -10,10 +10,13 @@ import model.TheCountry;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class Main extends Application {
 
     public static void main(String[] args) throws SQLException {
+
         JDBC.openConnection();
         launch(args);
 /*
@@ -25,6 +28,8 @@ public class Main extends Application {
 
         CountriesQuery.select();
 
+
+
         JDBC.closeConnection();
     }
 
@@ -32,7 +37,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/login-view.fxml"));
         root.setStyle("-fx-font-family: 'Arial';");
-        Scene scene = new Scene(root, 400, 250);
+        Scene scene = new Scene(root, 500, 250);
         primaryStage.setTitle("Scheduler");
         primaryStage.setScene(scene);
         primaryStage.show();

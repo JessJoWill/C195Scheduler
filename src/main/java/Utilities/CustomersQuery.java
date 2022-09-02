@@ -1,33 +1,35 @@
 package Utilities;
 
 import DAO.JDBC;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import model.Customer;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
 
 public abstract class CustomersQuery {
     public static int insert(String customerName, String address, String postalCode, String phone, int divisionId) throws SQLException {
-        String sql = "INSERT INTO customers (Customer_Name, Address, Postal_Code, Phone, Division_ID) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO customers (Customer_Name, Address, Postal_Code, Phone, Create_Date, Last_Update, Division_ID) VALUES (?, ?, ?, ?, NOW(), NOW(), ?)";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ps.setString(1, customerName);
         ps.setString(2, address);
         ps.setString(3, postalCode);
         ps.setString(4, phone);
-        ps.setInt(6, divisionId);
+        ps.setInt(5, divisionId);
         int rowsAffected = ps.executeUpdate();
         return rowsAffected;
     }
 
     public static int update(String customerName, String address, String postalCode, String phone, int divisionId) throws SQLException {
-        String sql = "UPDATE customers SET Customer_Name = ?, Address = ?, Postal_Code = ?, Phone = ?, Division_ID = ? WHERE Customer_ID = ?";
+        String sql = "UPDATE customers SET Customer_Name = ?, Address = ?, Postal_Code = ?, Phone = ?, Last_Update = NOW(), Division_ID = ? WHERE Customer_ID = ?";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ps.setString(1, customerName);
         ps.setString(2, address);
         ps.setString(3, postalCode);
         ps.setString(4, phone);
-        ps.setInt(6, divisionId);
+        ps.setInt(5, divisionId);
         int rowsAffected = ps.executeUpdate();
         return rowsAffected;
     }
@@ -40,6 +42,7 @@ public abstract class CustomersQuery {
         return rowsAffected;
     }
 
+    public static ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
     public static void select() throws SQLException {
         String sql = "SELECT * FROM customers";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
@@ -53,8 +56,8 @@ public abstract class CustomersQuery {
             String phone = rs.getString("Phone");
             int divisionId = rs.getInt("Division_ID");
 
-            System.out.print(customerId + " | ");
-            System.out.print(customerName + "\n");
+            Customer theCustomer = new Customer(customerName,address,postalCode,phone,divisionId);
+            allCustomers.add(theCustomer);
         }
     }
 }
