@@ -4,19 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e358c1a8-ea1b-452f-8bd2-6be43fdaf8b0" name="Changes" comment="Day 2">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Utilities/UsersQuery.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/language.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/language_fr.properties" afterDir="false" />
+    <list default="true" id="e358c1a8-ea1b-452f-8bd2-6be43fdaf8b0" name="Changes" comment="Day 4">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Utilities/CustomersQuery.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Utilities/CustomersQuery.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Utilities/DivisionsQuery.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Utilities/DivisionsQuery.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/AddModCustomerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/AddModCustomerController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/controller/CustomersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/CustomersController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/LoginController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/model/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Customer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/view/login-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/login-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,7 +101,14 @@
       <option name="project" value="LOCAL" />
       <updated>1662004703509</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Day 4">
+      <created>1662090001286</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1662090001286</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -126,6 +126,7 @@
     <MESSAGE value="Connection success - Login form success" />
     <MESSAGE value="Views &amp; Controllers created" />
     <MESSAGE value="Day 2" />
-    <option name="LAST_COMMIT_MESSAGE" value="Day 2" />
+    <MESSAGE value="Day 4" />
+    <option name="LAST_COMMIT_MESSAGE" value="Day 4" />
   </component>
 </project>

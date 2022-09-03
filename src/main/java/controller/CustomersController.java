@@ -1,5 +1,6 @@
 package controller;
 
+import Utilities.CustomersQuery;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -9,12 +10,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import model.Customer;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-import static Utilities.CustomersQuery.allCustomers;
+import static Utilities.CustomersQuery.tableCustomers;
 
 public class CustomersController implements Initializable {
     public TextField customerSearchTxt;
@@ -24,35 +27,36 @@ public class CustomersController implements Initializable {
     public Button updateCustomerBtn;
     public Button deleteCustomerBtn;
     public Button manageApptsBtn;
-    public TableView customersTableView;
-    public TableColumn customersTableId;
-    public TableColumn customersTableName;
-    public TableColumn customersTableAddress;
-    public TableColumn customersTableFirstDiv;
-    public TableColumn customersTableZip;
-    public TableColumn customersTableCountry;
-    public TableColumn customersTablePhone;
+    public TableView<Customer> customersTableView;
+    public TableColumn<Customer, Integer> customersTableId;
+    public TableColumn<Customer, String> customersTableName;
+    public TableColumn<Customer, String> customersTableAddress;
+    public TableColumn<Customer, String> customersTableFirstDiv;
+    public TableColumn<Customer, String> customersTableZip;
+    public TableColumn<Customer, String> customersTableCountry;
+    public TableColumn<Customer, String> customersTablePhone;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        customersTableView.setItems(allCustomers);
+        try {
+            CustomersQuery.select();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        customersTableView.setItems(tableCustomers);
 
         // Populating the table views
-        //
-        //
-        //
-        // Currently working on getting the tableview to populate
-        //
-        //
-        //
-        //
+
+        customersTableId.setCellValueFactory(new PropertyValueFactory<>("customerId"));
         customersTableName.setCellValueFactory(new PropertyValueFactory<>("customerName"));
         customersTableAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
-        customersTableFirstDiv.setCellValueFactory(new PropertyValueFactory<>("divisionId"));
-        customersTableZip.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
-        customersTableZip.setCellValueFactory(new PropertyValueFactory<>("country"));
-        customersTableZip.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        customersTableFirstDiv.setCellValueFactory(new PropertyValueFactory<>("division"));
+        customersTableZip.setCellValueFactory(new PropertyValueFactory<>("postalCode"));;
+        customersTableCountry.setCellValueFactory(new PropertyValueFactory<>("country"));
+        customersTablePhone.setCellValueFactory(new PropertyValueFactory<>("phone"));
     }
+
     public void onSearchCustomers(ActionEvent actionEvent) {
     }
 

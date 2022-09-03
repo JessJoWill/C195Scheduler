@@ -4,7 +4,6 @@ import DAO.JDBC;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.FirstLvlDivision;
-import model.TheCountry;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

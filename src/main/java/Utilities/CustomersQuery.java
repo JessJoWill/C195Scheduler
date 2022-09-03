@@ -42,9 +42,15 @@ public abstract class CustomersQuery {
         return rowsAffected;
     }
 
-    public static ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
+    public static ObservableList<Customer> tableCustomers = FXCollections.observableArrayList();
     public static void select() throws SQLException {
-        String sql = "SELECT * FROM customers";
+        String sql = "SELECT c.Customer_ID, c.Customer_Name, c.Address, c.Postal_Code, d.Division, f.Country, c.Phone \n" +
+                "FROM ((first_level_divisions d \n" +
+                "INNER JOIN customers c \n" +
+                "ON c.Division_ID = d.Division_ID)\n" +
+                "INNER JOIN countries f\n" +
+                "ON d.Country_ID = f.Country_ID)\n" +
+                ";";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
 
@@ -52,12 +58,14 @@ public abstract class CustomersQuery {
             int customerId = rs.getInt("Customer_ID");
             String customerName = rs.getString("Customer_Name");
             String address = rs.getString("Address");
+            String division = rs.getString("Division");
             String postalCode = rs.getString("Postal_Code");
+            String country = rs.getString("Country");
             String phone = rs.getString("Phone");
-            int divisionId = rs.getInt("Division_ID");
 
-            Customer theCustomer = new Customer(customerName,address,postalCode,phone,divisionId);
-            allCustomers.add(theCustomer);
+
+            Customer tableCustomer = new Customer(customerId,customerName,address,division,postalCode,country,phone);
+            tableCustomers.add(tableCustomer);
         }
     }
 }
