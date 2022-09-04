@@ -11,69 +11,73 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0"
-            prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="controller.AddModCustomerController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddModCustomerController">
    <padding>
-      <Insets bottom="30.0" left="30.0" right="30.0" top="30.0"/>
+      <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
    </padding>
    <VBox alignment="CENTER" spacing="50.0">
       <padding>
-         <Insets bottom="50.0" left="50.0" right="50.0" top="50.0"/>
+         <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
       </padding>
       <Label fx:id="addModifyCustomerLbl" prefHeight="50.0" text="Add New Customer">
          <font>
-            <Font size="25.0"/>
+            <Font size="25.0" />
          </font>
       </Label>
       <HBox alignment="CENTER_LEFT" prefWidth="900.0" spacing="10.0">
-         <Label prefWidth="70.0" text="Customer ID:"/>
-         <Label fx:id="customerIdLbl" prefWidth="60.0"/>
+         <Label prefWidth="70.0" text="Customer ID:" />
+         <Label fx:id="customerIdLbl" prefWidth="60.0" />
          <Label text="Name:">
             <padding>
-               <Insets left="40.0"/>
+               <Insets left="40.0" />
             </padding>
          </Label>
-         <TextField fx:id="customerNameTxt" prefWidth="320.0"/>
+         <TextField fx:id="customerNameTxt" prefWidth="320.0" />
          <Label text="Phone Number:">
             <padding>
-               <Insets left="40.0"/>
+               <Insets left="40.0" />
             </padding>
          </Label>
-         <TextField fx:id="phoneNumberTxt" prefWidth="200.0"/>
+         <TextField fx:id="phoneNumberTxt" prefWidth="200.0" />
       </HBox>
       <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefWidth="900.0" spacing="10.0">
-         <Label prefWidth="50.0" text="Address:"/>
-         <TextField fx:id="addressTxt" prefWidth="510.0"/>
+         <Label prefWidth="50.0" text="Address:" />
+         <TextField fx:id="addressTxt" prefWidth="510.0" />
          <Label prefWidth="110.0" text="Postal Code:">
             <padding>
-               <Insets left="40.0"/>
+               <Insets left="40.0" />
             </padding>
          </Label>
-         <TextField fx:id="postalCodeTxt" prefWidth="200.0"/>
+         <TextField fx:id="postalCodeTxt" prefWidth="200.0" />
       </HBox>
       <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="110.0" prefWidth="900.0" spacing="10.0">
-         <Label text="Country:"/>
-         <ComboBox fx:id="countryCombo" onAction="#filterFirstDiv" prefHeight="25.0" prefWidth="203.0"/>
+         <Label text="Country:" />
+         <ComboBox fx:id="countryCombo" onAction="#filterFirstDiv" prefHeight="25.0" prefWidth="203.0" />
          <Label text="State/Province:">
             <padding>
-               <Insets left="40.0"/>
+               <Insets left="40.0" />
             </padding>
          </Label>
-         <ComboBox fx:id="firstDivCombo" prefHeight="25.0" prefWidth="320.0"/>
-         <CheckBox fx:id="addApptChk" alignment="CENTER_RIGHT" mnemonicParsing="false" prefWidth="160.0"
-                   text="Add Appointment">
+         <ComboBox fx:id="firstDivCombo" prefHeight="25.0" prefWidth="320.0" />
+         <CheckBox fx:id="addApptChk" alignment="CENTER_RIGHT" mnemonicParsing="false" prefWidth="160.0" text="Add Appointment">
             <padding>
-               <Insets left="40.0"/>
+               <Insets left="40.0" />
             </padding>
          </CheckBox>
       </HBox>
       <HBox alignment="BOTTOM_RIGHT" layoutX="10.0" layoutY="144.0" prefWidth="900.0" spacing="20.0">
          <padding>
-            <Insets right="20.0"/>
+            <Insets right="20.0" />
          </padding>
-         <Button fx:id="saveBtn" mnemonicParsing="false" onAction="#onSaveCustomer" prefWidth="55.0" text="Save"/>
-         <Button fx:id="cancelBtn" mnemonicParsing="false" onAction="#onCancel" prefWidth="55.0" text="Cancel"/>
+         <Label fx:id="indexLbl" visible="false" />
+         <Label text="Current User:" />
+         <ComboBox fx:id="userCombo" prefWidth="150.0">
+            <HBox.margin>
+               <Insets right="200.0" />
+            </HBox.margin>
+         </ComboBox>
+         <Button fx:id="saveBtn" mnemonicParsing="false" onAction="#onSaveCustomer" prefWidth="55.0" text="Save" />
+         <Button fx:id="cancelBtn" mnemonicParsing="false" onAction="#onCancel" prefWidth="55.0" text="Cancel" />
       </HBox>
    </VBox>
 </AnchorPane>

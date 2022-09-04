@@ -1,8 +1,6 @@
 package controller;
 
-import Utilities.CountriesQuery;
 import Utilities.CustomersQuery;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -16,11 +14,14 @@ import model.FirstLvlDivision;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 import static Utilities.CountriesQuery.*;
 import static Utilities.DivisionsQuery.*;
+import static Utilities.UsersQuery.*;
 
 public class AddModCustomerController implements Initializable {
     public Label addModifyCustomerLbl;
@@ -34,21 +35,31 @@ public class AddModCustomerController implements Initializable {
     public CheckBox addApptChk;
     public Button saveBtn;
     public Button cancelBtn;
+    public ComboBox userCombo;
+    public Label indexLbl;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        if (CustomersController.addMod == "add"){
+            addModifyCustomerLbl.setText("Add New Customer");
+        }
+        if (CustomersController.addMod == "mod"){
+            addModifyCustomerLbl.setText("Update Customer Record");
+        }
+
         try {
             getCountries();
             getDivisions();
-            countryCombo.setItems(countryList);
-            firstDivCombo.setItems(divisionList);
-            }
-
-        catch (SQLException e) {
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
+            countryCombo.setItems(countryList);
+            firstDivCombo.setItems(divisionList);
+            userCombo.setItems(userList);
     }
+
+
     public void filterFirstDiv(ActionEvent actionEvent) throws SQLException {
             if (countryCombo.getSelectionModel().getSelectedItem().getCountryId() == 1) {
                 getUSDivisions();
@@ -67,8 +78,10 @@ public class AddModCustomerController implements Initializable {
         String address = addressTxt.getText();
         String postalCode = postalCodeTxt.getText();
         String phone = phoneNumberTxt.getText();
+        LocalDateTime create_date = LocalDateTime.now();
+        String created_by = userCombo.getSelectionModel().getSelectedItem().toString();
         int divisionId = (int) firstDivCombo.getSelectionModel().getSelectedItem().getDivisionId();
-        int rowsAffected = CustomersQuery.insert(customerName, address, postalCode, phone, divisionId);
+        int rowsAffected = CustomersQuery.insert(customerName, address, postalCode, phone, create_date, created_by, divisionId);
 
         if(rowsAffected == 0){
             System.out.println("Something went wrong.");
@@ -82,8 +95,24 @@ public class AddModCustomerController implements Initializable {
         primaryStage.show();
     }
 
-    public void onCancel(ActionEvent actionEvent) {
+    public void onCancel(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/view/customers-view.fxml"));
+        Stage primaryStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root, 1000, 645);
+        primaryStage.setTitle("Scheduler");
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 
 
+    public void fillForm(int selectedIndex, int customerId, String customerName, String address, FirstLvlDivision passDivision, String postalCode, TheCountry passCountry, String phone) {
+        indexLbl.setText(String.valueOf(selectedIndex));
+        customerIdLbl.setText(String.valueOf(customerId));
+        customerNameTxt.setText(customerName);
+        addressTxt.setText(address);
+        firstDivCombo.setValue(passDivision);
+        postalCodeTxt.setText(postalCode);
+        countryCombo.setValue(passCountry);
+        phoneNumberTxt.setText(phone);
+    }
 }

@@ -50,15 +50,20 @@ public abstract class UsersQuery {
     }
 
     public static ObservableList<User> userList = FXCollections.observableArrayList();
+    private static boolean notYetUsers = true;
     public static ObservableList<User> getUsers() throws SQLException {
         UsersQuery.select();
         String sql = "SELECT * FROM users";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
+        int userId = 0;
+        String userName = "";
+        String password = "";
+        if(!notYetUsers){
+            return null;
+        }
+        notYetUsers = false;
         while (rs.next()) {
-            int userId = 0;
-            String userName = "";
-            String password = "";
             User theUser = new User(userId, userName, password);
             theUser.setUserId(rs.getInt("User_ID"));
             theUser.setUserName(rs.getString("User_Name"));

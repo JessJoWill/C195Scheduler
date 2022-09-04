@@ -1,5 +1,7 @@
 package model;
 
+import javafx.scene.control.Alert;
+
 import java.sql.Date;
 
 public class Customer {
@@ -14,6 +16,8 @@ public class Customer {
     String Last_Updated_By;
     String country;
     String division;
+
+
 
     public String getDivision() {
         return division;
@@ -127,5 +131,10 @@ public class Customer {
 
     public void setDivisionId(int divisionId) {
         this.divisionId = divisionId;
+    }
+
+    @Override
+    public String toString() {
+        return (customerId + " " + customerName);
     }
 }

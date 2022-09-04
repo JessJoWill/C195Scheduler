@@ -2,11 +2,11 @@ package model;
 
 public class TheCountry {
     int countryId;
-    String country;
+    String countryName;
 
-    public TheCountry(int countryId, String country) {
+    public TheCountry(int countryId, String countryName) {
         this.countryId = countryId;
-        this.country = country;
+        this.countryName = countryName;
     }
 
      public int getCountryId() {
@@ -17,16 +17,16 @@ public class TheCountry {
         this.countryId = countryId;
     }
 
-    public String getCountry() {
-        return country;
+    public String getCountryName() {
+        return countryName;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
+    public void setCountryName(String countryName) {
+        this.countryName = countryName;
     }
 
     @Override
     public String toString() {
-        return (countryId + " " + country);
+        return (countryId + " " + countryName);
     }
 }

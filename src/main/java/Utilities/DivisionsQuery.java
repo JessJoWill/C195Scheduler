@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public abstract class DivisionsQuery {
+    private static boolean notYetDivision = true;
     public static int insert(String division) throws SQLException {
         String sql = "INSERT INTO first_level_divisions (Division) VALUES (?)";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
@@ -51,10 +52,14 @@ public abstract class DivisionsQuery {
     public static ObservableList<FirstLvlDivision> canadaList = FXCollections.observableArrayList();
 
     public static ObservableList<FirstLvlDivision> getDivisions() throws SQLException {
-        DivisionsQuery.select();
         String sql = "SELECT * FROM first_level_divisions";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
+        if (!notYetDivision){
+            return null;
+        }
+        notYetDivision = false;
+
         while (rs.next()) {
             int divisionId = 0;
             String division = "";
@@ -67,7 +72,6 @@ public abstract class DivisionsQuery {
 
     }
     public static ObservableList<FirstLvlDivision> getUSDivisions() throws SQLException {
-        DivisionsQuery.select();
         String sql = "SELECT * FROM first_level_divisions WHERE Country_ID = 1";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
@@ -83,7 +87,6 @@ public abstract class DivisionsQuery {
 
     }
     public static ObservableList<FirstLvlDivision> getUKDivisions() throws SQLException {
-        DivisionsQuery.select();
         String sql = "SELECT * FROM first_level_divisions WHERE Country_ID = 2";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
@@ -99,7 +102,6 @@ public abstract class DivisionsQuery {
 
     }
     public static ObservableList<FirstLvlDivision> getCanadaDivisions() throws SQLException {
-        DivisionsQuery.select();
         String sql = "SELECT * FROM first_level_divisions WHERE Country_ID = 3";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();

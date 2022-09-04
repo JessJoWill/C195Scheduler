@@ -12,6 +12,8 @@ import java.sql.SQLException;
 
 
 public abstract class CountriesQuery {
+    private static boolean notYetCountry = true;
+
     public static int insert(String country) throws SQLException {
         String sql = "INSERT INTO countries (Country) VALUES (?)";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
@@ -49,17 +51,20 @@ public abstract class CountriesQuery {
 
     public static ObservableList<TheCountry> countryList = FXCollections.observableArrayList();
     public static ObservableList<TheCountry> getCountries() throws SQLException {
-        CountriesQuery.select();
         String sql = "SELECT * FROM countries";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
+        if(!notYetCountry){
+            return null;
+        }
+        notYetCountry = false;
          while (rs.next()) {
              int countryId = 0;
              String country = "";
-            TheCountry aCountry = new TheCountry(countryId, country);
-            aCountry.setCountryId(rs.getInt("Country_ID"));
-            aCountry.setCountry(rs.getString("Country"));
-            countryList.add(aCountry);
+             TheCountry aCountry = new TheCountry(countryId, country);
+             aCountry.setCountryId(rs.getInt("Country_ID"));
+             aCountry.setCountryName(rs.getString("Country"));
+             countryList.add(aCountry);
         }
         return countryList;
 

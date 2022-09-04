@@ -11,9 +11,7 @@ public class Contact {
         this.contactEmail = contactEmail;
     }
 
-    public int getContactId() {
-        return contactId;
-    }
+    public int getContactId() { return contactId; }
 
     public void setContactId(int contactId) {
         this.contactId = contactId;
@@ -33,5 +31,10 @@ public class Contact {
 
     public void setContactEmail(String contactEmail) {
         this.contactEmail = contactEmail;
+    }
+
+    @Override
+    public String toString() {
+        return (contactId + " " + contactName);
     }
 }
