@@ -108,7 +108,7 @@
                <Font size="13.0" />
             </font>
          </Label>
-         <DatePicker fx:id="apptDatePicker" onAction="#getTimes" promptText="Choose a date" />
+         <DatePicker fx:id="apptDatePicker" promptText="Choose a date" />
          <Label text="Start Time:">
             <HBox.margin>
                <Insets left="48.0" />

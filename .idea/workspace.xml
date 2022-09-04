@@ -4,25 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e358c1a8-ea1b-452f-8bd2-6be43fdaf8b0" name="Changes" comment="Customers Table Populated">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Utilities/AppointmentsQuery.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Utilities/ContactsQuery.java" afterDir="false" />
+    <list default="true" id="e358c1a8-ea1b-452f-8bd2-6be43fdaf8b0" name="Changes" comment="Day 6?">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Utilities/CountriesQuery.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Utilities/CountriesQuery.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Utilities/CustomersQuery.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Utilities/CustomersQuery.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Utilities/DivisionsQuery.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Utilities/DivisionsQuery.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Utilities/UsersQuery.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Utilities/UsersQuery.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/controller/AddModApptController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/AddModApptController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/AddModCustomerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/AddModCustomerController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/controller/CustomerApptsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/CustomerApptsController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/controller/CustomersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/CustomersController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/Appointment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Appointment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/Contact.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Contact.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Customer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/TheCountry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/TheCountry.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/view/add-mod-appt-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/add-mod-appt-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/view/add-mod-customer-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/add-mod-customer-view.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/view/customers-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/customers-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -132,7 +119,14 @@
       <option name="project" value="LOCAL" />
       <updated>1662210320063</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Day 6?">
+      <created>1662261819974</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1662261819974</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -152,6 +146,7 @@
     <MESSAGE value="Day 2" />
     <MESSAGE value="Day 4" />
     <MESSAGE value="Customers Table Populated" />
-    <option name="LAST_COMMIT_MESSAGE" value="Customers Table Populated" />
+    <MESSAGE value="Day 6?" />
+    <option name="LAST_COMMIT_MESSAGE" value="Day 6?" />
   </component>
 </project>

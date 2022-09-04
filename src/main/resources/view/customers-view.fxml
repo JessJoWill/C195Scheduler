@@ -16,6 +16,7 @@
         <HBox spacing="50.0">
             <TextField fx:id="customerSearchTxt" prefWidth="200.0" promptText="Search by Customer ID or Name" />
             <Button fx:id="addCustomerBtn" mnemonicParsing="false" onAction="#onAddCustomer" text="Add New Customer" />
+         <Button fx:id="scheduleAppt" layoutX="260.0" layoutY="10.0" mnemonicParsing="false" onAction="#onAddAppt" text="Schedule New Appointment" />
         </HBox>
         <HBox alignment="BOTTOM_RIGHT" spacing="20.0">
          <Label fx:id="custSearchNoResultsLbl" layoutX="636.0" layoutY="10.0" textFill="RED">

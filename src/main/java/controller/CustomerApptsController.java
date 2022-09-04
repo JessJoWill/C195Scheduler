@@ -13,6 +13,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import model.Appointment;
 
 import java.io.IOException;
 import java.net.URL;
@@ -40,6 +41,7 @@ public class CustomerApptsController implements Initializable {
     public Button modifyApptBtn;
     public Button cancelApptBtn;
     public static String apptAddMod;
+    public static Appointment selectedAppointment;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -81,6 +83,7 @@ public class CustomerApptsController implements Initializable {
 
     public void onModifyAppt(ActionEvent actionEvent) throws IOException {
         apptAddMod = "mod";
+        selectedAppointment = (Appointment) customerApptsTableView.getSelectionModel().getSelectedItem();
         Parent root = FXMLLoader.load(getClass().getResource("/view/add-mod-appt-view.fxml"));
         Stage primaryStage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(root, 1000, 645);

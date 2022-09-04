@@ -44,8 +44,9 @@ public class CustomersController implements Initializable {
     public TableColumn<Customer, String> customersTableCountry;
     public TableColumn<Customer, String> customersTablePhone;
     public Label custSearchNoResultsLbl;
-    public int selectedIndex;
+    public static int selectedIndex;
     public static Customer selectedCustomer;
+    public Button scheduleAppt;
     private FirstLvlDivision passDivision;
     private TheCountry passCountry;
     public static int selCustomerId;
@@ -190,6 +191,7 @@ public class CustomersController implements Initializable {
 
     public void onManageAppts(ActionEvent actionEvent) throws IOException {
         Customer selectedCustomer = customersTableView.getSelectionModel().getSelectedItem();
+        selectedIndex = customersTableView.getSelectionModel().getSelectedIndex();
         selCustomerId = selectedCustomer.getCustomerId();
         selCustomerName = selectedCustomer.getCustomerName();
         Parent root = FXMLLoader.load(getClass().getResource("/view/customer-appts-view.fxml"));
@@ -200,4 +202,12 @@ public class CustomersController implements Initializable {
         primaryStage.show();
     }
 
+    public void onAddAppt(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/view/add-mod-appt-view.fxml"));
+        Stage primaryStage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root, 1000, 645);
+        primaryStage.setTitle("Scheduler");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
 }
