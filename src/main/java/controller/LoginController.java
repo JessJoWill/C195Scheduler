@@ -16,11 +16,16 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.User;
 
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 import static Utilities.UsersQuery.getUsers;
@@ -71,6 +76,10 @@ public class LoginController implements Initializable {
     }
 
     public void onLogin(ActionEvent actionEvent) throws IOException {
+
+        String logFile = "login_activity.txt";
+        FileWriter logFW = new FileWriter(logFile, true);
+        PrintWriter logPW = new PrintWriter(logFW);
         if (!(userIdTxt.getText().isEmpty()) && !(passwordTxt.getText().isEmpty())) {
             String loginUser = userIdTxt.getText();
             String loginPwd = passwordTxt.getText();
@@ -82,6 +91,8 @@ public class LoginController implements Initializable {
                 }
             }
             if(possibleList.isEmpty()){
+                logPW.println("-- Unsuccessful login attempt by " + userIdTxt.getText() + " : " + LocalDateTime.now());
+                logPW.close();
                 Alert wrongLogin = new Alert(Alert.AlertType.ERROR);
                 wrongLogin.setTitle(wrongLoginTitle);
                 wrongLogin.setContentText(wrongLoginContent);
@@ -89,13 +100,17 @@ public class LoginController implements Initializable {
             }
             for (User user : possibleList) {
                 if (user.getPassword().contains(loginPwd)) {
-                    Parent root = FXMLLoader.load(getClass().getResource("/view/customers-view.fxml"));
+                    logPW.println("++ Successful login attempt by " + userIdTxt.getText() + " : " + LocalDateTime.now());
+                    logPW.close();
+                    Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/customers-view.fxml")));
                     Stage primaryStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
                     Scene scene = new Scene(root, 1000, 645);
                     primaryStage.setTitle("Scheduler");
                     primaryStage.setScene(scene);
                     primaryStage.show();
                 } else {
+                    logPW.println("-- Unsuccessful login attempt by " + userIdTxt.getText() + " : " + LocalDateTime.now());
+                    logPW.close();
                     Alert wrongLogin = new Alert(Alert.AlertType.ERROR);
                     wrongLogin.setTitle(wrongLoginTitle);
                     wrongLogin.setContentText(wrongLoginContent);

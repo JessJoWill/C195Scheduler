@@ -8,30 +8,30 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import model.TheCountry;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class Main extends Application {
 
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) throws SQLException, FileNotFoundException, IOException {
 
         JDBC.openConnection();
         launch(args);
-/*
-        int rowsAffected = CustomersQuery.delete(4);
-        int rowsAffected = CustomersQuery.insert("Alejandro Mills", "344 Maple Drive, Jackson", "56223", "555-555-5555", "Jess", 29);
-        */
 
-        CustomersQuery.select();
 
-        CountriesQuery.select();
+
+
 
 
 
         JDBC.closeConnection();
     }
+
 
     @Override
     public void start(Stage primaryStage) throws IOException {

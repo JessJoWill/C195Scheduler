@@ -4,16 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e358c1a8-ea1b-452f-8bd2-6be43fdaf8b0" name="Changes" comment="Update Appointment form filling appropriately">
+    <list default="true" id="e358c1a8-ea1b-452f-8bd2-6be43fdaf8b0" name="Changes" comment="So many things">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Utilities/AppointmentsQuery.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Utilities/AppointmentsQuery.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Utilities/CustomersQuery.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Utilities/CustomersQuery.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/AddModApptController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/AddModApptController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/AddModCustomerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/AddModCustomerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/CustomerApptsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/CustomerApptsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/CustomersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/CustomersController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/view/add-mod-customer-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/add-mod-customer-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/view/customer-appts-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/customer-appts-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/LoginController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -129,7 +123,14 @@
       <option name="project" value="LOCAL" />
       <updated>1662261819974</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="So many things">
+      <created>1662347680031</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1662347680031</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -150,7 +151,8 @@
     <MESSAGE value="Day 4" />
     <MESSAGE value="Customers Table Populated" />
     <MESSAGE value="Day 6?" />
-    <option name="LAST_COMMIT_MESSAGE" value="Day 6?" />
+    <MESSAGE value="So many things" />
+    <option name="LAST_COMMIT_MESSAGE" value="So many things" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
