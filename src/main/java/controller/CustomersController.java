@@ -1,5 +1,6 @@
 package controller;
 
+import Utilities.AppointmentsQuery;
 import Utilities.CustomersQuery;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -11,21 +12,21 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import model.Appointment;
 import model.Customer;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import model.FirstLvlDivision;
-import model.TheCountry;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
-import static Utilities.CountriesQuery.countryList;
+import static Utilities.AppointmentsQuery.customerAppointments;
 import static Utilities.CustomersQuery.findCustomer;
 import static Utilities.CustomersQuery.tableCustomers;
-import static Utilities.DivisionsQuery.divisionList;
 
 public class CustomersController implements Initializable {
     public TextField customerSearchTxt;
@@ -47,10 +48,10 @@ public class CustomersController implements Initializable {
     public static int selectedIndex;
     public static Customer selectedCustomer;
     public Button scheduleAppt;
-    private FirstLvlDivision passDivision;
-    private TheCountry passCountry;
     public static int selCustomerId;
     public static String selCustomerName;
+    public static String selectedDivName;
+    public static String addMod = "";
 
 
     @Override
@@ -89,6 +90,7 @@ public class CustomersController implements Initializable {
         });
     }
 
+
     private void fillTable(){
             try {
                 CustomersQuery.select();
@@ -108,10 +110,10 @@ public class CustomersController implements Initializable {
             }
         }
 
-    public static String addMod = "";
+
     public void onAddCustomer(ActionEvent actionEvent) throws IOException {
         addMod = "add";
-        Parent root = FXMLLoader.load(getClass().getResource("/view/add-mod-customer-view.fxml"));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/add-mod-customer-view.fxml")));
         Stage primaryStage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(root, 1000, 645);
         primaryStage.setTitle("Scheduler");
@@ -123,30 +125,20 @@ public class CustomersController implements Initializable {
         addMod = "mod";
         selectedIndex = customersTableView.getSelectionModel().getSelectedIndex();
         selectedCustomer = customersTableView.getSelectionModel().getSelectedItem();
-        String selectedDivision = selectedCustomer.getDivision();
-        String selectedCountry = selectedCustomer.getCountry();
-        try {
-            for (FirstLvlDivision division : divisionList) {
-                if (division.getDivision().equals(selectedDivision)) {
-                    passDivision = division;
-                }
-            }
-            for (TheCountry country : countryList) {
-                if (country.getCountryName().equals(selectedCountry)) {
-                    passCountry = country;
-                }
-            }
+
+        try{
             int customerId = selectedCustomer.getCustomerId();
             String customerName = selectedCustomer.getCustomerName();
             String address = selectedCustomer.getAddress();
             String postalCode = selectedCustomer.getPostalCode();
             String phone = selectedCustomer.getPhone();
+            selectedDivName = selectedCustomer.getDivision();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/add-mod-customer-view.fxml"));
             Parent root = loader.load();
             Stage primaryStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
 
             AddModCustomerController modcustomercontroller = loader.getController();
-            modcustomercontroller.fillForm(selectedIndex, customerId, customerName, address, passDivision, postalCode, passCountry, phone);
+            modcustomercontroller.fillForm(selectedIndex, customerId, customerName, address, postalCode, phone);
             Scene scene = new Scene(root, 1000, 645);
             primaryStage.setTitle("Scheduler");
             primaryStage.setScene(scene);
@@ -160,8 +152,10 @@ public class CustomersController implements Initializable {
         }
     }
 
-    public void onDeleteCustomer(ActionEvent actionEvent) {
+    public void onDeleteCustomer(ActionEvent actionEvent) throws SQLException {
         Customer selectedCustomer = customersTableView.getSelectionModel().getSelectedItem();
+        selCustomerId = selectedCustomer.getCustomerId();
+        AppointmentsQuery.select();
         if(selectedCustomer == null){
             Alert noSelection = new Alert(Alert.AlertType.ERROR);
             noSelection.setTitle("Delete Error");
@@ -169,12 +163,21 @@ public class CustomersController implements Initializable {
             noSelection.showAndWait();
         }
         else {
+
             Alert delCustomerAlert = new Alert(Alert.AlertType.CONFIRMATION);
             delCustomerAlert.setTitle("Confirm Delete");
-            delCustomerAlert.setContentText("Are you sure you want to delete " + selectedCustomer.getCustomerName() + "?");
+            delCustomerAlert.setContentText(selectedCustomer.getCustomerName() + " has " + customerAppointments.size() + " appointment(s) scheduled. Are you sure you want to delete?");
             delCustomerAlert.showAndWait().ifPresent(response -> {
                 if (response == ButtonType.OK) {
                     try {
+                        //Delete all appointments
+                        if (customerAppointments.size() > 0) {
+                            for (Appointment customerAppointment : customerAppointments){
+                                int theId = customerAppointment.getApptId();
+                                AppointmentsQuery.delete(theId);
+                            }
+                        }
+                        //Delete customer
                         CustomersQuery.delete(selectedCustomer.getCustomerId());
                         fillTable();
                         Alert customerDeleted = new Alert(Alert.AlertType.INFORMATION);
@@ -190,20 +193,28 @@ public class CustomersController implements Initializable {
     }
 
     public void onManageAppts(ActionEvent actionEvent) throws IOException {
-        Customer selectedCustomer = customersTableView.getSelectionModel().getSelectedItem();
-        selectedIndex = customersTableView.getSelectionModel().getSelectedIndex();
-        selCustomerId = selectedCustomer.getCustomerId();
-        selCustomerName = selectedCustomer.getCustomerName();
-        Parent root = FXMLLoader.load(getClass().getResource("/view/customer-appts-view.fxml"));
-        Stage primaryStage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root, 1000, 645);
-        primaryStage.setTitle("Scheduler");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        try {
+            Customer selectedCustomer = customersTableView.getSelectionModel().getSelectedItem();
+            selectedIndex = customersTableView.getSelectionModel().getSelectedIndex();
+            selCustomerId = selectedCustomer.getCustomerId();
+            selCustomerName = selectedCustomer.getCustomerName();
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/customer-appts-view.fxml")));
+            Stage primaryStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root, 1000, 645);
+            primaryStage.setTitle("Scheduler");
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        }catch(Exception e){
+            Alert noSelection = new Alert(Alert.AlertType.ERROR);
+            noSelection.setTitle("No Customer Selected");
+            noSelection.setContentText("Please select a customer whose appointments you would like to manage.");
+            noSelection.showAndWait();
+        }
     }
 
     public void onAddAppt(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/view/add-mod-appt-view.fxml"));
+        CustomerApptsController.apptAddMod = "add";
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/add-mod-appt-view.fxml")));
         Stage primaryStage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(root, 1000, 645);
         primaryStage.setTitle("Scheduler");

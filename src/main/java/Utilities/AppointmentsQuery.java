@@ -5,15 +5,12 @@ import controller.CustomersController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Appointment;
-import model.Customer;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-
-import static controller.CustomersController.selCustomerId;
 
 public abstract class AppointmentsQuery {
     public static int insert(String title, String description, String location, int contactId, String type, LocalDateTime start, LocalDateTime end, LocalDateTime createDate, int customerId, int userId) throws SQLException {
@@ -33,20 +30,20 @@ public abstract class AppointmentsQuery {
         return rowsAffected;
     }
 
-    public static int update(String title, String description, String location, String type, LocalDateTime start, LocalDateTime end, LocalDateTime lastUpdate, String updatedBy, int customerId, int userId, int contactId) throws SQLException {
-        String sql = "UPDATE appointments SET Title = ?, Description = ?, Location = ?, Contact_ID = ?, Type = ?, Start = ?, End = ?, Last_Update = ?, Last_Updated_By = ?, Customer_ID = ?, User_ID = ? WHERE Customer_ID = ?";
+    public static int update(String title, String description, String location, int contactId, String type, LocalDateTime start, LocalDateTime end, LocalDateTime lastUpdate, int userId, int customerId, int apptId) throws SQLException {
+        String sql = "UPDATE appointments SET Title = ?, Description = ?, Location = ?, Contact_ID = ?, Type = ?, Start = ?, End = ?, Last_Update = ?, User_ID = ?, Customer_ID = ? WHERE Appointment_ID = ?";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ps.setString(1, title);
         ps.setString(2, description);
         ps.setString(3, location);
-        ps.setString(4, type);
-        ps.setTimestamp(5, Timestamp.valueOf(start));
-        ps.setTimestamp(6, Timestamp.valueOf(end));
-        ps.setTimestamp(7, Timestamp.valueOf(lastUpdate));
-        ps.setString(8, updatedBy);
-        ps.setInt(9, customerId);
-        ps.setInt(10, userId);
-        ps.setInt(11, contactId);
+        ps.setInt(4, contactId);
+        ps.setString(5, type);
+        ps.setTimestamp(6, Timestamp.valueOf(start));
+        ps.setTimestamp(7, Timestamp.valueOf(end));
+        ps.setTimestamp(8, Timestamp.valueOf(lastUpdate));
+        ps.setInt(9, userId);
+        ps.setInt(10, customerId);
+        ps.setInt(11, apptId);
         int rowsAffected = ps.executeUpdate();
         return rowsAffected;
     }
@@ -61,7 +58,7 @@ public abstract class AppointmentsQuery {
 
     public static ObservableList<Appointment> customerAppointments = FXCollections.observableArrayList();
     public static void select() throws SQLException {
-        String sql = "SELECT * from appointments where Customer_ID = " + selCustomerId + ";";
+        String sql = "SELECT * from appointments where Customer_ID = " + CustomersController.selCustomerId + ";";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
 
@@ -77,6 +74,7 @@ public abstract class AppointmentsQuery {
             LocalDateTime end = rs.getTimestamp("End").toLocalDateTime();
             Integer customerId = rs.getInt("Customer_ID");
             Integer userId = rs.getInt("User_ID");
+            System.out.println(apptId);
             Appointment customerAppt = new Appointment(apptId,title,description,location,contact,type,start,end,customerId,userId);
             customerAppointments.add(customerAppt);
         }

@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
@@ -25,8 +24,8 @@
          </font>
       </Label>
       <HBox alignment="CENTER_LEFT" prefWidth="900.0" spacing="10.0">
-         <Label prefWidth="70.0" text="Customer ID:" />
-         <Label fx:id="customerIdLbl" prefWidth="60.0" />
+         <Label fx:id="customerIdLbl" prefWidth="70.0" text="Customer ID:" />
+         <Label fx:id="customerIdValueLbl" prefWidth="60.0" />
          <Label text="Name:">
             <padding>
                <Insets left="40.0" />
@@ -59,11 +58,6 @@
             </padding>
          </Label>
          <ComboBox fx:id="firstDivCombo" prefHeight="25.0" prefWidth="320.0" />
-         <CheckBox fx:id="addApptChk" alignment="CENTER_RIGHT" mnemonicParsing="false" prefWidth="160.0" text="Add Appointment">
-            <padding>
-               <Insets left="40.0" />
-            </padding>
-         </CheckBox>
       </HBox>
       <HBox alignment="BOTTOM_RIGHT" layoutX="10.0" layoutY="144.0" prefWidth="900.0" spacing="20.0">
          <padding>

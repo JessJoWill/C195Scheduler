@@ -25,7 +25,7 @@ public abstract class CustomersQuery {
         return rowsAffected;
     }
 
-    public static int update(String customerName, String address, String postalCode, String phone, LocalDateTime last_updated, String updatedBy, int divisionId) throws SQLException {
+    public static int update(String customerName, String address, String postalCode, String phone, LocalDateTime last_updated, String updatedBy, int divisionId, int customerId) throws SQLException {
         String sql = "UPDATE customers SET Customer_Name = ?, Address = ?, Postal_Code = ?, Phone = ?, Last_Update = ?, Last_Updated_By = ?, Division_ID = ? WHERE Customer_ID = ?";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ps.setString(1, customerName);
@@ -35,6 +35,7 @@ public abstract class CustomersQuery {
         ps.setTimestamp(5, Timestamp.valueOf(LocalDateTime.now()));
         ps.setString(6, updatedBy);
         ps.setInt(7, divisionId);
+        ps.setInt(8, customerId);
         int rowsAffected = ps.executeUpdate();
         return rowsAffected;
     }

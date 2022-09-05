@@ -4,13 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e358c1a8-ea1b-452f-8bd2-6be43fdaf8b0" name="Changes" comment="Day 6?">
+    <list default="true" id="e358c1a8-ea1b-452f-8bd2-6be43fdaf8b0" name="Changes" comment="Update Appointment form filling appropriately">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Utilities/AppointmentsQuery.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Utilities/AppointmentsQuery.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Utilities/CustomersQuery.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Utilities/CustomersQuery.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/controller/AddModApptController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/AddModApptController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controller/AddModCustomerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/AddModCustomerController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/controller/CustomerApptsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/CustomerApptsController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/controller/CustomersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/CustomersController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/view/add-mod-appt-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/add-mod-appt-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/view/customers-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/customers-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/view/add-mod-customer-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/add-mod-customer-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/view/customer-appts-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/customer-appts-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -148,5 +151,25 @@
     <MESSAGE value="Customers Table Populated" />
     <MESSAGE value="Day 6?" />
     <option name="LAST_COMMIT_MESSAGE" value="Day 6?" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/controller/AddModApptController.java</url>
+          <line>58</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/Utilities/AppointmentsQuery.java</url>
+          <line>50</line>
+          <properties class="Utilities.AppointmentsQuery" method="delete">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

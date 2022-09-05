@@ -26,6 +26,7 @@ import static Utilities.ContactsQuery.getContacts;
 import static Utilities.CustomersQuery.tableCustomers;
 import static Utilities.UsersQuery.getUsers;
 import static Utilities.UsersQuery.userList;
+import static controller.CustomerApptsController.apptAddMod;
 import static controller.CustomerApptsController.selectedAppointment;
 import static controller.CustomersController.selectedIndex;
 import static java.time.temporal.ChronoUnit.MINUTES;
@@ -74,14 +75,9 @@ public class AddModApptController implements Initializable {
 
                 apptDurationTxt.setText(String.valueOf(MINUTES.between(selectedAppointment.getStart(), selectedAppointment.getEnd())));
             }
-
-
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
-
     }
 
     public void onSaveAppt(ActionEvent actionEvent) throws DateTimeParseException, NumberFormatException, IOException, SQLException {
@@ -96,8 +92,10 @@ public class AddModApptController implements Initializable {
                 String apptDate = apptDatePicker.getValue().toString();
                 String apptTime = apptStartTxt.getText();
                 LocalDateTime createDate = LocalDateTime.now();
+                LocalDateTime lastUpdate = LocalDateTime.now();
                 String customer = customerListCombo.getValue().toString();
                 String userNum = usersCombo.getValue().toString();
+                int apptId = 0;
 
                 LocalDateTime start = LocalDateTime.parse(apptDate + "T" + apptTime);
                 String getSpan = apptDurationTxt.getText();
@@ -107,8 +105,15 @@ public class AddModApptController implements Initializable {
                 int userId = Integer.parseInt(userNum.replaceAll("[^0-9]", ""));
                 int customerId = Integer.parseInt(customer.replaceAll("[^0-9]", ""));
                 int contactId = Integer.parseInt(contact.replaceAll("[^0-9]", ""));
-
-                int rowsAffected = AppointmentsQuery.insert(title, description, location, contactId, type, start, end, createDate, customerId, userId);
+                int rowsAffected = 0;
+                System.out.println(apptAddMod);
+                if(Objects.equals(CustomerApptsController.apptAddMod, "add")) {
+                    rowsAffected = AppointmentsQuery.insert(title, description, location, contactId, type, start, end, createDate, customerId, userId);
+                }
+                else{
+                    apptId = Integer.parseInt(apptIdValueLbl.getText());
+                    rowsAffected = AppointmentsQuery.update(title,description,location,contactId,type,start,end,lastUpdate,customerId,userId,apptId);
+                }
 
                 if (rowsAffected == 0) {
                     System.out.println("Something went wrong.");
@@ -127,11 +132,11 @@ public class AddModApptController implements Initializable {
                 incompleteForm.setContentText("Please complete all fields before saving.");
                 incompleteForm.showAndWait();
             }
-        }catch(NumberFormatException e){
+        /*}catch(NumberFormatException e){
             Alert nfe = new Alert(Alert.AlertType.ERROR);
             nfe.setTitle("Input Error");
             nfe.setContentText("Please enter only numbers in the duration field.");
-            nfe.showAndWait();
+            nfe.showAndWait();*/
         }catch(DateTimeParseException e){
             Alert dtpe = new Alert(Alert.AlertType.ERROR);
             dtpe.setTitle("Input Error");
