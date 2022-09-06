@@ -15,6 +15,8 @@ import model.Appointment;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -33,14 +35,15 @@ public class CustomerApptsController implements Initializable {
     public TableColumn customerApptTypeCol;
     public TableColumn customerApptStartCol;
     public TableColumn customerApptEndCol;
-    public TableColumn customerApptCustIdCol;
     public TableColumn customerApptUserIdCol;
+    public TableColumn customerApptCustIdCol;
     public Button addApptBtn;
     public Button modifyApptBtn;
     public Button cancelApptBtn;
     public static String apptAddMod;
     public static Appointment selectedAppointment;
     public Button backBtn;
+    public Button viewReportsBtn;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -125,6 +128,15 @@ public class CustomerApptsController implements Initializable {
 
     public void toCustomerScreen(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/customers-view.fxml")));
+        Stage primaryStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root, 1000, 645);
+        primaryStage.setTitle("Scheduler");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    public void toReports(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/user-appt-report-view.fxml")));
         Stage primaryStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(root, 1000, 645);
         primaryStage.setTitle("Scheduler");

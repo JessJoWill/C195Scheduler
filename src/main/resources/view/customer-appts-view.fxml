@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CustomerApptsController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CustomerApptsController">
     <VBox prefHeight="450.0" prefWidth="950.0" spacing="30.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
         <HBox prefWidth="900.0" spacing="10.0">
             <Label text="Customer ID:">
@@ -59,6 +59,7 @@
       <HBox alignment="BOTTOM_CENTER" layoutX="10.0" layoutY="430.0" prefWidth="900.0" spacing="30.0">
          <children>
             <Button fx:id="backBtn" layoutX="62.0" layoutY="10.0" mnemonicParsing="false" onAction="#toCustomerScreen" prefWidth="200.0" text="Return to Customer List" />
+            <Button fx:id="viewReportsBtn" layoutX="385.0" layoutY="10.0" mnemonicParsing="false" onAction="#toReports" prefWidth="200.0" text="View Reports" />
          </children>
       </HBox>
     </VBox>

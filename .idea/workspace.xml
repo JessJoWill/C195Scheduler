@@ -4,10 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e358c1a8-ea1b-452f-8bd2-6be43fdaf8b0" name="Changes" comment="So many things">
+    <list default="true" id="e358c1a8-ea1b-452f-8bd2-6be43fdaf8b0" name="Changes" comment="Log file functional">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Utilities/AppointmentsQuery.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Utilities/AppointmentsQuery.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controller/AddModApptController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/AddModApptController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controller/CustomerApptsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/CustomerApptsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controller/UserAppointmentsReportController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/UserAppointmentsReportController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/view/add-mod-appt-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/add-mod-appt-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/view/customer-appts-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/customer-appts-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/view/user-appt-report-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/user-appt-report-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +31,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -130,7 +137,14 @@
       <option name="project" value="LOCAL" />
       <updated>1662347680031</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Log file functional">
+      <created>1662395069395</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1662395069395</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -152,24 +166,105 @@
     <MESSAGE value="Customers Table Populated" />
     <MESSAGE value="Day 6?" />
     <MESSAGE value="So many things" />
-    <option name="LAST_COMMIT_MESSAGE" value="So many things" />
+    <MESSAGE value="Log file functional" />
+    <option name="LAST_COMMIT_MESSAGE" value="Log file functional" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/controller/AddModApptController.java</url>
-          <line>58</line>
-          <option name="timeStamp" value="10" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/Utilities/AppointmentsQuery.java</url>
-          <line>50</line>
-          <properties class="Utilities.AppointmentsQuery" method="delete">
+        <line-breakpoint type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/controller/CustomersController.java</url>
+          <line>93</line>
+          <properties class="controller.CustomersController" method="fillTable">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
-          <option name="timeStamp" value="19" />
+          <option name="timeStamp" value="37" />
+        </line-breakpoint>
+        <line-breakpoint type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/controller/CustomersController.java</url>
+          <line>113</line>
+          <properties class="controller.CustomersController" method="onAddCustomer">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="38" />
+        </line-breakpoint>
+        <line-breakpoint type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/controller/CustomersController.java</url>
+          <line>123</line>
+          <properties class="controller.CustomersController" method="onUpdateCustomer">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="39" />
+        </line-breakpoint>
+        <line-breakpoint type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/controller/CustomersController.java</url>
+          <line>154</line>
+          <properties class="controller.CustomersController" method="onDeleteCustomer">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="40" />
+        </line-breakpoint>
+        <line-breakpoint type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/controller/CustomersController.java</url>
+          <line>194</line>
+          <properties class="controller.CustomersController" method="onManageAppts">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="44" />
+        </line-breakpoint>
+        <line-breakpoint type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/controller/CustomersController.java</url>
+          <line>214</line>
+          <properties class="controller.CustomersController" method="onAddAppt">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="55" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/controller/CustomersController.java</url>
+          <line>164</line>
+          <option name="timeStamp" value="42" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/controller/CustomersController.java</url>
+          <line>159</line>
+          <option name="timeStamp" value="43" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/controller/CustomersController.java</url>
+          <line>196</line>
+          <option name="timeStamp" value="45" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/controller/CustomersController.java</url>
+          <line>197</line>
+          <option name="timeStamp" value="46" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/controller/CustomersController.java</url>
+          <line>198</line>
+          <option name="timeStamp" value="47" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/controller/CustomersController.java</url>
+          <line>199</line>
+          <option name="timeStamp" value="48" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/controller/CustomersController.java</url>
+          <line>200</line>
+          <option name="timeStamp" value="49" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/controller/CustomersController.java</url>
+          <line>215</line>
+          <option name="timeStamp" value="56" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
