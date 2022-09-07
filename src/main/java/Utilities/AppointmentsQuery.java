@@ -1,7 +1,7 @@
 package Utilities;
 
 import DAO.JDBC;
-import controller.CustomersController;
+import controller.LoginController;
 import controller.UserAppointmentsReportController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,6 +13,8 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
+
+import static controller.CustomersController.selCustomerId;
 
 public abstract class AppointmentsQuery {
     public static int insert(String title, String description, String location, int contactId, String type, ZonedDateTime utcStart, ZonedDateTime utcEnd, int customerId, int userId) throws SQLException {
@@ -60,7 +62,7 @@ public abstract class AppointmentsQuery {
 
     public static ObservableList<Appointment> customerAppointments = FXCollections.observableArrayList();
     public static void select() throws SQLException {
-        String sql = "SELECT * from appointments where Customer_ID = " + CustomersController.selCustomerId + ";";
+        String sql = "SELECT * from appointments where Customer_ID = " + selCustomerId + ";";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
 
@@ -70,12 +72,12 @@ public abstract class AppointmentsQuery {
             String title = rs.getString("Title");
             String description = rs.getString("Description");
             String location = rs.getString("Location");
-            Integer contact = rs.getInt("Contact_ID");
+            int contact = rs.getInt("Contact_ID");
             String type = rs.getString("Type");
             LocalDateTime start = rs.getTimestamp("Start").toLocalDateTime();
             LocalDateTime end = rs.getTimestamp("End").toLocalDateTime();
-            Integer customerId = rs.getInt("Customer_ID");
-            Integer userId = rs.getInt("User_ID");
+            int customerId = rs.getInt("Customer_ID");
+            int userId = rs.getInt("User_ID");
             Appointment customerAppt = new Appointment(apptId,title,description,location,contact,type,start,end,customerId,userId);
             customerAppointments.add(customerAppt);
         }
@@ -93,14 +95,33 @@ public abstract class AppointmentsQuery {
             String title = rs.getString("Title");
             String description = rs.getString("Description");
             String location = rs.getString("Location");
-            Integer contact = rs.getInt("Contact_ID");
+            int contact = rs.getInt("Contact_ID");
             String type = rs.getString("Type");
             LocalDateTime start = rs.getTimestamp("Start").toLocalDateTime();
             LocalDateTime end = rs.getTimestamp("End").toLocalDateTime();
-            Integer customerId = rs.getInt("Customer_ID");
-            Integer userId = rs.getInt("User_ID");
+            int customerId = rs.getInt("Customer_ID");
+            int userId = rs.getInt("User_ID");
             Appointment userAppt = new Appointment(apptId,title,description,location,contact,type,start,end,customerId,userId);
             userAppointments.add(userAppt);
+        }
+    }
+
+    public static ObservableList<Appointment> upcomingAppointments = FXCollections.observableArrayList();
+    public static void upcomingSelect() throws SQLException {
+        String sql = "SELECT a.Appointment_ID, a.Title, a.Location, a.Start, u.User_Name, c.Customer_Name FROM ((appointments a INNER JOIN users u on a.User_ID = u.User_ID) INNER JOIN customers c on a.Customer_ID = c.Customer_ID) WHERE User_Name = \"" + LoginController.currentUserName + "\";";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+
+        upcomingAppointments.clear();
+        while(rs.next()){
+            int apptId = rs.getInt("Appointment_ID");
+            String title = rs.getString("Title");
+            String location = rs.getString("Location");
+            LocalDateTime start = rs.getTimestamp("Start").toLocalDateTime();
+            String userName = rs.getString("User_Name");
+            String customerName = rs.getString("Customer_Name");
+            Appointment upcomingAppointment = new Appointment(apptId,title,location,start,userName,customerName);
+            upcomingAppointments.add(upcomingAppointment);
         }
     }
 }

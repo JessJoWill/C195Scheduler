@@ -1,6 +1,5 @@
 package controller;
 
-import DAO.JDBC;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,7 +15,6 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.User;
 
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -30,6 +28,7 @@ import java.util.ResourceBundle;
 
 import static Utilities.UsersQuery.getUsers;
 import static Utilities.UsersQuery.userList;
+import static javafx.application.Platform.exit;
 
 /**
  * Displays and controls the login screen.
@@ -48,6 +47,7 @@ public class LoginController implements Initializable {
     public String wrongLoginContent = "The login you entered is not in the system.";
     public String needInputTitle = "Enter Login Information";
     public String needInputContent = "Please enter your Username and Password to log in.";
+    public static String currentUserName;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -102,6 +102,7 @@ public class LoginController implements Initializable {
                 if (user.getPassword().contains(loginPwd)) {
                     logPW.println("++ Successful login attempt by " + userIdTxt.getText() + " : " + LocalDateTime.now());
                     logPW.close();
+                    currentUserName = userIdTxt.getText();
                     Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/customers-view.fxml")));
                     Stage primaryStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
                     Scene scene = new Scene(root, 1000, 645);
@@ -126,8 +127,7 @@ public class LoginController implements Initializable {
             }
         }
 
-
     public void onCancel(ActionEvent actionEvent) {
-
+        exit();
     }
 }

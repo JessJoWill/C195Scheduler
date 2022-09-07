@@ -15,28 +15,30 @@ import model.Appointment;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
+import java.sql.Timestamp;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
 import static Utilities.AppointmentsQuery.customerAppointments;
 import static controller.CustomersController.*;
 
+/**
+ * Displays and controls the Customer Appointments screen.
+ */
 public class CustomerApptsController implements Initializable {
     public Label customerIdLbl;
     public Label customerNameLbl;
-    public TableView customerApptsTableView;
-    public TableColumn customerApptIdCol;
-    public TableColumn customerApptTitleCol;
-    public TableColumn customerApptDescriptionCol;
-    public TableColumn customerApptLocationCol;
-    public TableColumn customerApptContactCol;
-    public TableColumn customerApptTypeCol;
-    public TableColumn customerApptStartCol;
-    public TableColumn customerApptEndCol;
-    public TableColumn customerApptUserIdCol;
-    public TableColumn customerApptCustIdCol;
+    public TableView<Appointment> customerApptsTableView;
+    public TableColumn<Appointment, Integer> customerApptIdCol;
+    public TableColumn<Appointment, String> customerApptTitleCol;
+    public TableColumn<Appointment, String> customerApptDescriptionCol;
+    public TableColumn<Appointment, String> customerApptLocationCol;
+    public TableColumn<Appointment, String> customerApptContactCol;
+    public TableColumn<Appointment, String> customerApptTypeCol;
+    public TableColumn<Appointment, Timestamp> customerApptStartCol;
+    public TableColumn<Appointment, Timestamp> customerApptEndCol;
+    public TableColumn<Appointment, Integer> customerApptUserIdCol;
+    public TableColumn<Appointment, Integer> customerApptCustIdCol;
     public Button addApptBtn;
     public Button modifyApptBtn;
     public Button cancelApptBtn;
@@ -45,6 +47,9 @@ public class CustomerApptsController implements Initializable {
     public Button backBtn;
     public Button viewReportsBtn;
 
+    /**
+     * Runs the method to fill the table view and sets the customer name and ID labels.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         fillApptTable();
@@ -52,6 +57,9 @@ public class CustomerApptsController implements Initializable {
         customerNameLbl.setText(selCustomerName);
     }
 
+    /**
+     * Populates the Appointments tableview.
+     */
     private void fillApptTable() {
         try {
             AppointmentsQuery.select();
@@ -73,9 +81,13 @@ public class CustomerApptsController implements Initializable {
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * Takes the user to the Add/Modify Appointments screen, and specifies that an appointment is to be added.
+     */
     public void onAddAppt(ActionEvent actionEvent) throws IOException {
         apptAddMod = "add";
-        Parent root = FXMLLoader.load(getClass().getResource("/view/add-mod-appt-view.fxml"));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/add-mod-appt-view.fxml")));
         Stage primaryStage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(root, 1000, 645);
         primaryStage.setTitle("Scheduler");
@@ -83,11 +95,14 @@ public class CustomerApptsController implements Initializable {
         primaryStage.show();
     }
 
+    /**
+     * Takes the user to the Add/Modify Appointments screen and specifies that an appointment is to be modified.
+     */
     public void onModifyAppt(ActionEvent actionEvent) throws IOException {
         apptAddMod = "mod";
-        selectedAppointment = (Appointment) customerApptsTableView.getSelectionModel().getSelectedItem();
+        selectedAppointment = customerApptsTableView.getSelectionModel().getSelectedItem();
 
-        Parent root = FXMLLoader.load(getClass().getResource("/view/add-mod-appt-view.fxml"));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/add-mod-appt-view.fxml")));
         Stage primaryStage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(root, 1000, 645);
         primaryStage.setTitle("Scheduler");
@@ -96,8 +111,11 @@ public class CustomerApptsController implements Initializable {
 
     }
 
+    /**
+     * Gets confirmation from the user before canceling an appointment, and shows confirmation afterward.
+     */
     public void onDeleteAppt(ActionEvent actionEvent) {
-        Appointment selectedAppointment = (Appointment) customerApptsTableView.getSelectionModel().getSelectedItem();
+        Appointment selectedAppointment = customerApptsTableView.getSelectionModel().getSelectedItem();
         if(selectedAppointment == null){
             Alert noSelection = new Alert(Alert.AlertType.ERROR);
             noSelection.setTitle("Cancel Error");
@@ -125,7 +143,9 @@ public class CustomerApptsController implements Initializable {
         }
     }
 
-
+    /**
+     * Returns the user to the main Customers screen.
+     */
     public void toCustomerScreen(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/customers-view.fxml")));
         Stage primaryStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -135,6 +155,9 @@ public class CustomerApptsController implements Initializable {
         primaryStage.show();
     }
 
+    /**
+     * Takes the user to the Reports screen.
+     */
     public void toReports(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/user-appt-report-view.fxml")));
         Stage primaryStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();

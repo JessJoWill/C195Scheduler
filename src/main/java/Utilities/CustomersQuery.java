@@ -50,13 +50,7 @@ public abstract class CustomersQuery {
 
     public static ObservableList<Customer> tableCustomers = FXCollections.observableArrayList();
     public static void select() throws SQLException {
-        String sql = "SELECT c.Customer_ID, c.Customer_Name, c.Address, c.Postal_Code, d.Division, f.Country, c.Phone \n" +
-                "FROM ((first_level_divisions d \n" +
-                "INNER JOIN customers c \n" +
-                "ON c.Division_ID = d.Division_ID)\n" +
-                "INNER JOIN countries f\n" +
-                "ON d.Country_ID = f.Country_ID)\n" +
-                ";";
+        String sql = "SELECT c.Customer_ID, c.Customer_Name, c.Address, c.Postal_Code, d.Division, f.Country, c.Phone FROM ((first_level_divisions d INNER JOIN customers c ON c.Division_ID = d.Division_ID) INNER JOIN countries f ON d.Country_ID = f.Country_ID);";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
 

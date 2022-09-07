@@ -24,8 +24,10 @@ import static Utilities.CountriesQuery.*;
 import static Utilities.DivisionsQuery.*;
 import static Utilities.UsersQuery.*;
 import static controller.CustomersController.selectedCustomer;
-import static controller.CustomersController.selectedDivName;
 
+/**
+ * Displays and controls the Add/Modify Customer screen.
+ */
 public class AddModCustomerController implements Initializable {
     public Label addModifyCustomerLbl;
     public Label customerIdLbl;
@@ -40,9 +42,10 @@ public class AddModCustomerController implements Initializable {
     public ComboBox<User> userCombo;
     public Label indexLbl;
     public Label customerIdValueLbl;
-    private int countryId;
 
-
+    /**
+     * Populates combo boxes and selects appropriate labels for Adding or Modifying customers.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
@@ -65,6 +68,9 @@ public class AddModCustomerController implements Initializable {
         }
     }
 
+    /**
+     * Updates the first division combobox list based on the chosen country.
+     */
     public void filterFirstDiv(ActionEvent actionEvent) throws SQLException {
             if (countryCombo.getSelectionModel().getSelectedItem().getCountryId() == 1) {
                 getUSDivisions();
@@ -78,6 +84,9 @@ public class AddModCustomerController implements Initializable {
             }
     }
 
+    /**
+     * Validates that all fields are filled in and inserts user input into the client_schedule database. Also returns the user to the main Customers screen.
+     */
     public void onSaveCustomer(ActionEvent actionEvent) throws SQLException, IOException {
         if(!(customerNameTxt.getText().isEmpty()) && !(addressTxt.getText().isEmpty()) && !(postalCodeTxt.getText().isEmpty()) && !(phoneNumberTxt.getText().isEmpty()) && !(userCombo.getSelectionModel().isEmpty()) && !(firstDivCombo.getSelectionModel().isEmpty())){
 
@@ -89,8 +98,8 @@ public class AddModCustomerController implements Initializable {
         String created_by = userCombo.getSelectionModel().getSelectedItem().toString();
         LocalDateTime last_updated = LocalDateTime.now();
         String updatedBy = userCombo.getSelectionModel().getSelectedItem().toString();
-        int divisionId = (int) firstDivCombo.getSelectionModel().getSelectedItem().getDivisionId();
-        int rowsAffected = 0;
+        int divisionId = firstDivCombo.getSelectionModel().getSelectedItem().getDivisionId();
+        int rowsAffected;
         if(CustomersController.addMod.equals("add")) {
             rowsAffected = CustomersQuery.insert(customerName, address, postalCode, phone, create_date, created_by, divisionId);
         }
@@ -117,6 +126,9 @@ public class AddModCustomerController implements Initializable {
         }
     }
 
+    /**
+     * Returns the user to the main Customers screen
+     */
     public void onCancel(ActionEvent actionEvent) throws IOException {
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/customers-view.fxml")));
             Stage primaryStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -126,18 +138,15 @@ public class AddModCustomerController implements Initializable {
             primaryStage.show();
     }
 
-    public void findCountry(int divisionId){
-        if(divisionId < 60){
-            countryId = 1;
-        }
-        else if(divisionId < 100){
-            countryId = 3;
-        }
-        else {
-            countryId = 2;
-        }
-    }
-
+    /**
+     * Pre-fills the form with existing data for modifying a customer.
+     * @param selectedIndex the index of the selected customer
+     * @param customerId the customer ID of the selected customer
+     * @param customerName the name of the selected customer
+     * @param address the address of the selected customer
+     * @param postalCode the postal code of the selected customer
+     * @param phone the phone number of the selected customer
+     */
     public void fillForm(int selectedIndex, int customerId, String customerName, String address, String postalCode, String phone) {
         indexLbl.setText(String.valueOf(selectedIndex));
         customerIdLbl.setText(String.valueOf(customerId));

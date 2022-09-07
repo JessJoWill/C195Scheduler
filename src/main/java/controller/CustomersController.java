@@ -21,10 +21,15 @@ import model.FirstLvlDivision;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.chrono.ChronoLocalDateTime;
 import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.TimeZone;
 
 import static Utilities.AppointmentsQuery.customerAppointments;
+import static Utilities.AppointmentsQuery.upcomingAppointments;
 import static Utilities.CustomersQuery.findCustomer;
 import static Utilities.CustomersQuery.tableCustomers;
 
@@ -52,11 +57,35 @@ public class CustomersController implements Initializable {
     public static String selCustomerName;
     public static String selectedDivName;
     public static String addMod = "";
+    ZonedDateTime plusFifteen;
 
+
+    private void checkSchedule() throws SQLException {
+        AppointmentsQuery.upcomingSelect();
+        ZonedDateTime currentLocal = ZonedDateTime.now();
+
+        for(Appointment upcomingAppt : upcomingAppointments){
+            ZonedDateTime utcStart = upcomingAppt.getStart().atZone(ZoneId.of("UTC"));
+            ZonedDateTime localStart = utcStart.withZoneSameInstant(ZoneId.of(TimeZone.getDefault().getID()));
+            plusFifteen = currentLocal.plusMinutes(15);
+            System.out.println(plusFifteen);
+            if(localStart.isBefore(plusFifteen) && currentLocal.isBefore(localStart)) {
+                Alert apptSoon = new Alert(Alert.AlertType.INFORMATION);
+                apptSoon.setTitle("Upcoming Appointment");
+                apptSoon.setContentText("Upcoming appointment #" + upcomingAppt.getApptId() + " " + upcomingAppt.getTitle() + " with " + upcomingAppt.getCustomerName() + " begins at " + upcomingAppt.getStart().toLocalTime() + ".");
+                apptSoon.showAndWait();
+            }
+        }
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        try {
+            checkSchedule();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         fillTable();
 
         // Search functionality for customers table
