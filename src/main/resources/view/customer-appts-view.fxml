@@ -56,11 +56,9 @@
             <Button fx:id="modifyApptBtn" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#onModifyAppt" prefWidth="130.0" text="Update Appointment" />
             <Button fx:id="cancelApptBtn" layoutX="62.0" layoutY="10.0" mnemonicParsing="false" onAction="#onDeleteAppt" prefWidth="130.0" text="Cancel Appointment" />
         </HBox>
-      <HBox alignment="BOTTOM_CENTER" layoutX="10.0" layoutY="430.0" prefWidth="900.0" spacing="30.0">
-         <children>
-            <Button fx:id="backBtn" layoutX="62.0" layoutY="10.0" mnemonicParsing="false" onAction="#toCustomerScreen" prefWidth="200.0" text="Return to Customer List" />
-            <Button fx:id="viewReportsBtn" layoutX="385.0" layoutY="10.0" mnemonicParsing="false" onAction="#toReports" prefWidth="200.0" text="View Reports" />
-         </children>
-      </HBox>
+        <HBox alignment="BOTTOM_CENTER" layoutX="10.0" layoutY="430.0" prefWidth="900.0" spacing="30.0">
+            <Button fx:id="backBtn" layoutX="62.0" layoutY="10.0" mnemonicParsing="false" onAction="#toCustomerScreen"
+                    prefWidth="200.0" text="Return to Customer List"/>
+        </HBox>
     </VBox>
 </AnchorPane>

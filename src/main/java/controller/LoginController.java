@@ -49,6 +49,9 @@ public class LoginController implements Initializable {
     public String needInputContent = "Please enter your Username and Password to log in.";
     public static String currentUserName;
 
+    /**
+     * Adds translation to French for the login screen if the user's computer is set to French.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
@@ -75,23 +78,27 @@ public class LoginController implements Initializable {
         }
     }
 
+    /**
+     * Checks a user's Username and Password against the database users and writes to a text file called login_activity.txt every time a user attempts to log in.
+     */
     public void onLogin(ActionEvent actionEvent) throws IOException {
-
         String logFile = "login_activity.txt";
         FileWriter logFW = new FileWriter(logFile, true);
         PrintWriter logPW = new PrintWriter(logFW);
+        currentUserName = userIdTxt.getText();
+
         if (!(userIdTxt.getText().isEmpty()) && !(passwordTxt.getText().isEmpty())) {
             String loginUser = userIdTxt.getText();
             String loginPwd = passwordTxt.getText();
             ObservableList<User> possibleList = FXCollections.observableArrayList();
 
             for (User user : userList) {
-                if (user.getUserName().contains(loginUser)) {
+                if (user.getUserName().equals(loginUser)) {
                     possibleList.add(user);
                 }
             }
             if(possibleList.isEmpty()){
-                logPW.println("-- Unsuccessful login attempt by " + userIdTxt.getText() + " : " + LocalDateTime.now());
+                logPW.println("-- Unsuccessful login attempt by " + currentUserName + " : " + LocalDateTime.now());
                 logPW.close();
                 Alert wrongLogin = new Alert(Alert.AlertType.ERROR);
                 wrongLogin.setTitle(wrongLoginTitle);
@@ -99,10 +106,9 @@ public class LoginController implements Initializable {
                 wrongLogin.showAndWait();
             }
             for (User user : possibleList) {
-                if (user.getPassword().contains(loginPwd)) {
-                    logPW.println("++ Successful login attempt by " + userIdTxt.getText() + " : " + LocalDateTime.now());
+                if (user.getPassword().equals(loginPwd)) {
+                    logPW.println("++ Successful login attempt by " + currentUserName + " : " + LocalDateTime.now());
                     logPW.close();
-                    currentUserName = userIdTxt.getText();
                     Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/customers-view.fxml")));
                     Stage primaryStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
                     Scene scene = new Scene(root, 1000, 645);
@@ -110,7 +116,7 @@ public class LoginController implements Initializable {
                     primaryStage.setScene(scene);
                     primaryStage.show();
                 } else {
-                    logPW.println("-- Unsuccessful login attempt by " + userIdTxt.getText() + " : " + LocalDateTime.now());
+                    logPW.println("-- Unsuccessful login attempt by " + currentUserName + " : " + LocalDateTime.now());
                     logPW.close();
                     Alert wrongLogin = new Alert(Alert.AlertType.ERROR);
                     wrongLogin.setTitle(wrongLoginTitle);
@@ -127,6 +133,9 @@ public class LoginController implements Initializable {
             }
         }
 
+    /**
+     * Exits the program.
+     */
     public void onCancel(ActionEvent actionEvent) {
         exit();
     }

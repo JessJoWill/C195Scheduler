@@ -47,7 +47,8 @@ public class Appointment {
         this.userId = userId;
     }
 
-    public Appointment(int apptId, String title, String location, LocalDateTime start, String userName, String customerName) {
+    // Constructor for upcoming appointments
+    public Appointment(int apptId, String title, String location, LocalDateTime start, int userId, String userName, String customerName) {
         this.apptId = apptId;
         this.title = title;
         this.location = location;

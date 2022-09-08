@@ -17,13 +17,13 @@ import model.Customer;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import model.FirstLvlDivision;
+import model.User;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.time.chrono.ChronoLocalDateTime;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.TimeZone;
@@ -32,7 +32,12 @@ import static Utilities.AppointmentsQuery.customerAppointments;
 import static Utilities.AppointmentsQuery.upcomingAppointments;
 import static Utilities.CustomersQuery.findCustomer;
 import static Utilities.CustomersQuery.tableCustomers;
+import static Utilities.UsersQuery.userList;
+import static controller.LoginController.currentUserName;
 
+/**
+ * Displays and controlls the main Customers screen.
+ */
 public class CustomersController implements Initializable {
     public TextField customerSearchTxt;
     public Button addCustomerBtn;
@@ -57,36 +62,54 @@ public class CustomersController implements Initializable {
     public static String selCustomerName;
     public static String selectedDivName;
     public static String addMod = "";
+    public Button reportsBtn;
     ZonedDateTime plusFifteen;
+    int currentUser;
 
 
     private void checkSchedule() throws SQLException {
         AppointmentsQuery.upcomingSelect();
         ZonedDateTime currentLocal = ZonedDateTime.now();
+        boolean triggerAlert = false;
 
         for(Appointment upcomingAppt : upcomingAppointments){
             ZonedDateTime utcStart = upcomingAppt.getStart().atZone(ZoneId.of("UTC"));
             ZonedDateTime localStart = utcStart.withZoneSameInstant(ZoneId.of(TimeZone.getDefault().getID()));
             plusFifteen = currentLocal.plusMinutes(15);
-            System.out.println(plusFifteen);
             if(localStart.isBefore(plusFifteen) && currentLocal.isBefore(localStart)) {
                 Alert apptSoon = new Alert(Alert.AlertType.INFORMATION);
                 apptSoon.setTitle("Upcoming Appointment");
-                apptSoon.setContentText("Upcoming appointment #" + upcomingAppt.getApptId() + " " + upcomingAppt.getTitle() + " with " + upcomingAppt.getCustomerName() + " begins at " + upcomingAppt.getStart().toLocalTime() + ".");
+                apptSoon.setContentText("User #" + upcomingAppt.getUserId() + " has an upcoming appointment #" + upcomingAppt.getApptId() + " " + upcomingAppt.getTitle() + " with " + upcomingAppt.getCustomerName() + "today, " + upcomingAppt.getStart().toLocalDate() + ", which begins at " + upcomingAppt.getStart().toLocalTime() + ".");
                 apptSoon.showAndWait();
+                triggerAlert = true;
             }
+        }
+        if(triggerAlert == false){
+            for(User user : userList){
+                if (user.getUserName().equals(currentUserName)){
+                    currentUser = user.getUserId();
+                }
+            }
+            Alert noApptSoon = new Alert(Alert.AlertType.INFORMATION);
+            noApptSoon.setTitle("No Upcoming Appointments");
+            noApptSoon.setContentText("User #" + currentUser + " has no upcoming appointments within the next fifteen minutes.");
+            noApptSoon.showAndWait();
         }
     }
 
+    /**
+     * Runs the method to check a user's upcoming appointments and to fill the customers table view, and adds the functionality to the search bar.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         try {
             checkSchedule();
+            fillTable();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        fillTable();
+
 
         // Search functionality for customers table
         customerSearchTxt.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -119,7 +142,9 @@ public class CustomersController implements Initializable {
         });
     }
 
-
+    /**
+     * Populates the customers table view.
+     */
     private void fillTable(){
             try {
                 CustomersQuery.select();
@@ -139,7 +164,9 @@ public class CustomersController implements Initializable {
             }
         }
 
-
+    /**
+     * Takes the user to the Add/Modify customer screen, and specifies that a customer will be added.
+     */
     public void onAddCustomer(ActionEvent actionEvent) throws IOException {
         addMod = "add";
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/add-mod-customer-view.fxml")));
@@ -150,6 +177,9 @@ public class CustomersController implements Initializable {
         primaryStage.show();
     }
 
+    /**
+     * Takes the user to the Add/Modify customer screen, and specifies that a customer will be modified. Also extracts the pre-fill information for the form fields on the Modify customer form.
+     */
     public void onUpdateCustomer(ActionEvent actionEvent) {
         addMod = "mod";
         selectedIndex = customersTableView.getSelectionModel().getSelectedIndex();
@@ -181,6 +211,9 @@ public class CustomersController implements Initializable {
         }
     }
 
+    /**
+     * With confirmation from the user, deletes the selected customer from the customer list. Before deleting the customer, it deletes all the customer's scheduled appointments.
+     */
     public void onDeleteCustomer(ActionEvent actionEvent) throws SQLException {
         Customer selectedCustomer = customersTableView.getSelectionModel().getSelectedItem();
         selCustomerId = selectedCustomer.getCustomerId();
@@ -221,6 +254,9 @@ public class CustomersController implements Initializable {
         }
     }
 
+    /**
+     * Takes the user to the customer appointments screen, where they can add, modify or cancel appointments.
+     */
     public void onManageAppts(ActionEvent actionEvent) throws IOException {
         try {
             Customer selectedCustomer = customersTableView.getSelectionModel().getSelectedItem();
@@ -241,6 +277,9 @@ public class CustomersController implements Initializable {
         }
     }
 
+    /**
+     * Takes the user to the Add/Modify appointments screen, and specifies that a new appointment will be added.
+     */
     public void onAddAppt(ActionEvent actionEvent) throws IOException {
         CustomerApptsController.apptAddMod = "add";
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/add-mod-appt-view.fxml")));
@@ -249,5 +288,8 @@ public class CustomersController implements Initializable {
         primaryStage.setTitle("Scheduler");
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    public void toReports(ActionEvent actionEvent) {
     }
 }

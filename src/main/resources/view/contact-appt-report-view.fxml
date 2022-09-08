@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ReportsController">
+   <VBox alignment="CENTER" prefHeight="541.0" prefWidth="950.0" spacing="10.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
+      <Label alignment="CENTER" text="Contact Schedule">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <HBox spacing="20.0">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <padding>
+            <Insets left="30.0" right="20.0" />
+         </padding>
+         <Label layoutX="237.0" layoutY="10.0" text="Contact:" />
+         <ComboBox fx:id="contactsCombo" onAction="#fillApptTable" prefWidth="150.0" promptText="Choose a contact" />
+      </HBox>
+      <TableView fx:id="userApptsTableView" minHeight="-Infinity" prefHeight="484.0" prefWidth="950.0">
+         <columns>
+            <TableColumn fx:id="apptIdCol" prefWidth="75.0" text="Appt ID" />
+            <TableColumn fx:id="apptTitleCol" prefWidth="100.0" text="Title" />
+            <TableColumn fx:id="apptDescriptionCol" prefWidth="180.0" text="Description" />
+            <TableColumn fx:id="apptLocationCol" prefWidth="100.0" text="Location" />
+            <TableColumn fx:id="apptTypeCol" prefWidth="100.0" text="Type" />
+            <TableColumn fx:id="apptStartCol" prefWidth="160.0" text="Start" />
+            <TableColumn fx:id="apptEndCol" prefWidth="160.0" text="End" />
+            <TableColumn fx:id="apptCustomerIdCol" minWidth="0.0" prefWidth="75.0" text="Customer ID" />
+         </columns>
+      </TableView>
+      <HBox alignment="CENTER" spacing="50.0">
+         <Button fx:id="userApptBtn" layoutX="863.0" layoutY="10.0" mnemonicParsing="false" onAction="#toUserApptReport" prefWidth="185.0" text="User Appointments Report" />
+         <Button fx:id="custByRegionBtn" layoutX="343.0" layoutY="10.0" mnemonicParsing="false" onAction="#toCustByRegion" prefWidth="185.0" text="Customers By Region" />
+         <Button fx:id="custApptBtn" layoutX="438.0" layoutY="10.0" mnemonicParsing="false" onAction="#toCustApptReport" text="Customer Appointments Report" />
+         <Button fx:id="mainMenuBtn" mnemonicParsing="false" onAction="#onCancel" prefWidth="185.0" text="Main Menu" />
+      </HBox>
+   </VBox>
+</AnchorPane>

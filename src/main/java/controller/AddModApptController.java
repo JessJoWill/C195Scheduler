@@ -24,6 +24,7 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.TimeZone;
 
+import static Utilities.AppointmentsQuery.allAppointments;
 import static Utilities.AppointmentsQuery.customerAppointments;
 import static Utilities.ContactsQuery.contactList;
 import static Utilities.ContactsQuery.getContacts;
@@ -62,8 +63,6 @@ public class AddModApptController implements Initializable {
     DateTimeFormatter ampmFormatter = DateTimeFormatter.ofPattern(ampmPattern);
     DateTimeFormatter ckpmFormatter = DateTimeFormatter.ofPattern(ckpmPattern);
     ZoneId newYorkZone = ZoneId.of("America/New_York");
-    ZoneId londonZone = ZoneId.of("Europe/London");
-    ZoneId phoenixZone = ZoneId.of("America/Phoenix");
     ZoneId utcZone = ZoneId.of("UTC");
     ZoneId localZone = ZoneId.of(TimeZone.getDefault().getID());
     public static ZonedDateTime utcStart;
@@ -117,7 +116,7 @@ public class AddModApptController implements Initializable {
                 ZonedDateTime zonedStart = ZonedDateTime.of(dbStart, utcZone);
                 ZonedDateTime localStart = zonedStart.withZoneSameInstant(localZone);
                 LocalTime localStartTime = LocalTime.from(localStart);
-                apptStartTxt.setText(String.valueOf((localStartTime).format(ampmFormatter)));
+                apptStartTxt.setText((localStartTime).format(ampmFormatter));
                 if(zonedStart.format(ckpmFormatter).contains("PM")){
                     pmBtn.setSelected(true);
                 }
@@ -133,12 +132,8 @@ public class AddModApptController implements Initializable {
 
     /**
      * Adds new appointments to the database, and updates existing appointments in the database.
-     * @throws DateTimeParseException
-     * @throws NumberFormatException
-     * @throws IOException
-     * @throws SQLException
      */
-    public void onSaveAppt(ActionEvent actionEvent) throws DateTimeParseException, NumberFormatException, IOException, SQLException {
+    public void onSaveAppt(ActionEvent actionEvent) throws DateTimeParseException, NumberFormatException {
 
         validateForm();
         try{
@@ -157,7 +152,7 @@ public class AddModApptController implements Initializable {
             String apptTime = apptStartTxt.getText();
             String customer = customerListCombo.getValue().toString();
             String userNum = usersCombo.getValue().toString();
-            int apptId = 0; // initializing for update()
+            int apptId; // initializing for update()
 
             if (pmBtn.isSelected()) {
                 apptTime += " PM";
@@ -210,7 +205,7 @@ public class AddModApptController implements Initializable {
                 int userId = Integer.parseInt(userNum.replaceAll("[^0-9]", "")); // extracting the user ID from the user combobox value
                 int customerId = Integer.parseInt(customer.replaceAll("[^0-9]", "")); // extracting the customer ID from the customer combobox value
                 int contactId = Integer.parseInt(contact.replaceAll("[^0-9]", "")); // extracting the contact ID from the contact combobox value
-                int rowsAffected = 0;
+                int rowsAffected;
 
                 // For adding new appointments
                 if (Objects.equals(CustomerApptsController.apptAddMod, "add")) {
@@ -251,17 +246,13 @@ public class AddModApptController implements Initializable {
 
     /**
      * Checks to make sure the appointment being scheduled doesn't overlap with any already scheduled.
-     * @return
-     * @throws SQLException
      */
     private boolean checkOverlap() throws SQLException {
         boolean result = true;
         System.out.println("Running checkOverlap");
         selCustomerId = customerListCombo.getSelectionModel().getSelectedItem().getCustomerId();
-        AppointmentsQuery.select();
-        System.out.println(selCustomerId);
-        System.out.println(customerAppointments.size());
-        for (Appointment appointment : customerAppointments) {
+        AppointmentsQuery.selectAll();
+        for (Appointment appointment : allAppointments) {
             if(appointment.getApptId() != currentApptId) {
 
                 System.out.println(appointment.getStart() + ": Start from DB");
@@ -291,7 +282,6 @@ public class AddModApptController implements Initializable {
 
     /**
      * Returns the user to the main Customers screen.
-     * @throws IOException
      */
     public void onCancel(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/customers-view.fxml")));

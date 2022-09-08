@@ -15,9 +15,21 @@
     <VBox alignment="TOP_CENTER" spacing="20.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
         <HBox spacing="50.0">
             <TextField fx:id="customerSearchTxt" prefWidth="200.0" promptText="Search by Customer ID or Name" />
-            <Button fx:id="addCustomerBtn" mnemonicParsing="false" onAction="#onAddCustomer" text="Add New Customer" />
+            <Button fx:id="addCustomerBtn" mnemonicParsing="false" onAction="#onAddCustomer" prefWidth="165.0" text="Add New Customer" />
          <Button fx:id="scheduleAppt" layoutX="260.0" layoutY="10.0" mnemonicParsing="false" onAction="#onAddAppt" text="Schedule New Appointment" />
+         <Button fx:id="reportsBtn" layoutX="430.0" layoutY="10.0" mnemonicParsing="false" onAction="#toReports" prefWidth="165.0" text="View Reports" />
         </HBox>
+        <TableView fx:id="customersTableView" prefHeight="500.0" prefWidth="950.0">
+            <columns>
+                <TableColumn fx:id="customersTableId" prefWidth="60.0" text="ID" />
+                <TableColumn fx:id="customersTableName" prefWidth="150.0" text="Name" />
+                <TableColumn fx:id="customersTableAddress" prefWidth="235.0" text="Address" />
+                <TableColumn fx:id="customersTableFirstDiv" prefWidth="175.0" text="First Division" />
+                <TableColumn fx:id="customersTableZip" text="Postal Code" />
+                <TableColumn fx:id="customersTableCountry" prefWidth="130.0" text="Country" />
+                <TableColumn fx:id="customersTablePhone" prefWidth="120.0" text="Phone Number" />
+            </columns>
+        </TableView>
         <HBox alignment="BOTTOM_RIGHT" spacing="20.0">
          <Label fx:id="custSearchNoResultsLbl" layoutX="636.0" layoutY="10.0" textFill="RED">
             <font>
@@ -41,16 +53,5 @@
             <Button fx:id="deleteCustomerBtn" layoutX="66.0" layoutY="10.0" mnemonicParsing="false" onAction="#onDeleteCustomer" text="Delete" />
             <Button fx:id="manageApptsBtn" mnemonicParsing="false" onAction="#onManageAppts" text="Manage Appointments" />
         </HBox>
-        <TableView fx:id="customersTableView" prefHeight="500.0" prefWidth="950.0">
-            <columns>
-                <TableColumn fx:id="customersTableId" prefWidth="60.0" text="ID" />
-                <TableColumn fx:id="customersTableName" prefWidth="150.0" text="Name" />
-                <TableColumn fx:id="customersTableAddress" prefWidth="235.0" text="Address" />
-                <TableColumn fx:id="customersTableFirstDiv" prefWidth="175.0" text="First Division" />
-                <TableColumn fx:id="customersTableZip" text="Postal Code" />
-                <TableColumn fx:id="customersTableCountry" prefWidth="130.0" text="Country" />
-                <TableColumn fx:id="customersTablePhone" prefWidth="120.0" text="Phone Number" />
-            </columns>
-        </TableView>
     </VBox>
 </AnchorPane>

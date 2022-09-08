@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ReportsController">
+   <VBox alignment="CENTER" prefHeight="541.0" prefWidth="950.0" spacing="10.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
+      <Label alignment="CENTER" text="Customer Appointments">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+       <VBox alignment="CENTER" minHeight="500.0" prefHeight="500.0" spacing="50.0">
+           <padding>
+               <Insets bottom="50.0" top="50.0"/>
+           </padding>
+           <Label text="By Month">
+              <padding>
+                  <Insets bottom="-30.0"/>
+              </padding>
+              <font>
+                  <Font size="15.0"/>
+              </font>
+           </Label>
+           <TableView fx:id="apptByMonthTV" maxHeight="200.0" maxWidth="900.0" prefHeight="65.0" prefWidth="950.0">
+               <columns>
+                   <TableColumn fx:id="janCol" prefWidth="75.0" text="January"/>
+                   <TableColumn fx:id="febCol" prefWidth="75.0" text="February"/>
+                   <TableColumn fx:id="marCol" prefWidth="75.0" text="March"/>
+                   <TableColumn fx:id="aprCol" prefWidth="75.0" text="April"/>
+                   <TableColumn fx:id="mayCol" prefWidth="75.0" text="May"/>
+                   <TableColumn fx:id="juneCol" prefWidth="75.0" text="June"/>
+                   <TableColumn fx:id="julyCol" prefWidth="75.0" text="July"/>
+                   <TableColumn fx:id="augCol" prefWidth="75.0" text="August"/>
+                   <TableColumn fx:id="sepCol" prefWidth="75.0" text="September"/>
+                   <TableColumn fx:id="octCol" prefWidth="75.0" text="October"/>
+                   <TableColumn fx:id="novCol" prefWidth="75.0" text="November"/>
+                   <TableColumn fx:id="decCol" prefWidth="75.0" text="December"/>
+               </columns>
+           </TableView>
+           <Label text="By Type">
+              <padding>
+                  <Insets bottom="-30.0"/>
+              </padding>
+              <font>
+                  <Font size="15.0"/>
+              </font>
+           </Label>
+           <TableView fx:id="apptsByTypeTV" maxWidth="300.0" prefHeight="65.0" prefWidth="300.0">
+               <columns>
+                   <TableColumn fx:id="inPersonCol" prefWidth="75.0" text="In-Person"/>
+                   <TableColumn fx:id="phoneCol" prefWidth="75.0" text="Telephone"/>
+                   <TableColumn fx:id="virtualCol" prefWidth="75.0" text="Virtual"/>
+                   <TableColumn fx:id="conferenceCol" prefWidth="75.0" text="Conference"/>
+               </columns>
+           </TableView>
+       </VBox>
+      <HBox alignment="CENTER" spacing="50.0">
+         <Button fx:id="userApptBtn" layoutX="863.0" layoutY="10.0" mnemonicParsing="false" onAction="#toUserApptReport" prefWidth="185.0" text="User Appointments Report" />
+         <Button fx:id="custByRegionBtn" layoutX="343.0" layoutY="10.0" mnemonicParsing="false" onAction="#toCustByRegion" prefWidth="185.0" text="Customers By Region" />
+         <Button fx:id="contactApptBtn" layoutX="438.0" layoutY="10.0" mnemonicParsing="false" onAction="#toContactApptReport" prefWidth="185.0" text="Contact Appointments Report" />
+         <Button fx:id="mainMenuBtn" mnemonicParsing="false" onAction="#onCancel" prefWidth="185.0" text="Main Menu" />
+      </HBox>
+   </VBox>
+</AnchorPane>
