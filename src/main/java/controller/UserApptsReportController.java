@@ -13,8 +13,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.Appointment;
-import model.Contact;
-import model.Customer;
 import model.User;
 
 import java.io.IOException;
@@ -33,14 +31,10 @@ import static Utilities.AppointmentsQuery.userAppointments;
 import static Utilities.UsersQuery.getUsers;
 import static Utilities.UsersQuery.userList;
 
-/**
- * Displays and controls the reports screen.
- */
-public class ReportsController implements Initializable {
+public class UserApptsReportController implements Initializable{
     public RadioButton allApptsRB;
     public RadioButton apptsByWeekRB;
     public RadioButton apptsByMonthRB;
-    public ToggleGroup apptFilterToggle;
     public TableView<Appointment> userApptsTableView;
     public TableColumn<Appointment, Integer> apptIdCol;
     public TableColumn<Appointment, String> apptTitleCol;
@@ -63,34 +57,11 @@ public class ReportsController implements Initializable {
     public Button custByRegionBtn;
     public Button contactApptBtn;
     public Button custApptBtn;
-    public TableView<Customer> customersByRegionTV;
-    public TableColumn<Customer, String> firstDivisionCol;
-    public TableColumn<Customer, String> countryCol;
-    public TableColumn<Customer, Integer> numCustomersCol;
-    public Button userApptBtn;
-    public TableView<Appointment> apptByMonthTV;
-    public TableColumn<Appointment, Integer> janCol;
-    public TableColumn<Appointment, Integer> febCol;
-    public TableColumn<Appointment, Integer> marCol;
-    public TableColumn<Appointment, Integer> aprCol;
-    public TableColumn<Appointment, Integer> mayCol;
-    public TableColumn<Appointment, Integer> juneCol;
-    public TableColumn<Appointment, Integer> julyCol;
-    public TableColumn<Appointment, Integer> augCol;
-    public TableColumn<Appointment, Integer> sepCol;
-    public TableColumn<Appointment, Integer> octCol;
-    public TableColumn<Appointment, Integer> novCol;
-    public TableColumn<Appointment, Integer> decCol;
-    public TableView<Appointment> apptsByTypeTV;
-    public TableColumn<Appointment, Integer> inPersonCol;
-    public TableColumn<Appointment, Integer> phoneCol;
-    public TableColumn<Appointment, Integer> virtualCol;
-    public TableColumn<Appointment, Integer> conferenceCol;
-    public ComboBox<Contact> contactsCombo;
+    public Label countLabel;
 
     /**
-     * Populates the users combobox and initializes the radio buttons to all.
-     */
+    * Populates the users combobox and initializes the radio buttons to all.
+    */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
@@ -115,8 +86,8 @@ public class ReportsController implements Initializable {
             }
         }
         fillApptTable();
+        countLabel.setText(weeksAppointments.size() + " appointments scheduled in the next week.");
     }
-
 
     /**
      * Filters the User Appointments report to the current month.
@@ -131,18 +102,8 @@ public class ReportsController implements Initializable {
             }
         }
         fillApptTable();
-    }
+        countLabel.setText(monthsAppointments.size() + " appointments scheduled in the next month.");
 
-    /**
-     * Returns the user to the Customers screen.
-     */
-    public void onCancel(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/customers-view.fxml")));
-        Stage primaryStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root, 1000, 645);
-        primaryStage.setTitle("Scheduler");
-        primaryStage.setScene(scene);
-        primaryStage.show();
     }
 
     /**
@@ -164,6 +125,8 @@ public class ReportsController implements Initializable {
         }
         else{
             userApptsTableView.setItems(userAppointments);
+            countLabel.setText(userAppointments.size() + " total appointments scheduled.");
+
         }
 
         // Populating the table views
@@ -177,7 +140,7 @@ public class ReportsController implements Initializable {
         apptEndCol.setCellValueFactory(new PropertyValueFactory<>("end"));
         apptCustomerIdCol.setCellValueFactory(new PropertyValueFactory<>("customerId"));
         apptUserIdCol.setCellValueFactory(new PropertyValueFactory<>("userId"));
-    }
+        }
 
     public void toCustByRegion(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/customers-by-region-view.fxml")));
@@ -206,8 +169,11 @@ public class ReportsController implements Initializable {
         primaryStage.show();
     }
 
-    public void toUserApptReport(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/user-appt-report-view.fxml")));
+    /**
+     * Returns the user to the Customers screen.
+     */
+    public void onCancel(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/customers-view.fxml")));
         Stage primaryStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(root, 1000, 645);
         primaryStage.setTitle("Scheduler");

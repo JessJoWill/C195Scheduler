@@ -1,12 +1,14 @@
 package Utilities;
 
 import DAO.JDBC;
-import controller.CustomersController;
+import controller.ContactApptsReportController;
 import controller.LoginController;
-import controller.ReportsController;
+import controller.CustomerApptReportController;
+import controller.UserApptsReportController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Appointment;
+import model.FirstLvlDivision;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -110,7 +112,7 @@ public abstract class AppointmentsQuery {
 
     public static ObservableList<Appointment> userAppointments = FXCollections.observableArrayList();
     public static void userSelect() throws SQLException {
-        String sql = "SELECT * from appointments where User_ID = " + ReportsController.selUserId + ";";
+        String sql = "SELECT * from appointments where User_ID = " + UserApptsReportController.selUserId + ";";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
 
@@ -128,6 +130,29 @@ public abstract class AppointmentsQuery {
             int userId = rs.getInt("User_ID");
             Appointment userAppt = new Appointment(apptId,title,description,location,contact,type,start,end,customerId,userId);
             userAppointments.add(userAppt);
+        }
+    }
+
+    public static ObservableList<Appointment> contactAppointments = FXCollections.observableArrayList();
+    public static void contactSelect() throws SQLException {
+        String sql = "SELECT * from appointments where Contact_ID = " + ContactApptsReportController.selContactId + ";";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+
+        contactAppointments.clear();
+        while(rs.next()){
+            int apptId = rs.getInt("Appointment_ID");
+            String title = rs.getString("Title");
+            String description = rs.getString("Description");
+            String location = rs.getString("Location");
+            int contact = rs.getInt("Contact_ID");
+            String type = rs.getString("Type");
+            LocalDateTime start = rs.getTimestamp("Start").toLocalDateTime();
+            LocalDateTime end = rs.getTimestamp("End").toLocalDateTime();
+            int customerId = rs.getInt("Customer_ID");
+            int userId = rs.getInt("User_ID");
+            Appointment userAppt = new Appointment(apptId,title,description,location,contact,type,start,end,customerId,userId);
+            contactAppointments.add(userAppt);
         }
     }
 
@@ -149,6 +174,22 @@ public abstract class AppointmentsQuery {
             Appointment upcomingAppointment = new Appointment(apptId,title,location,start,userId,userName,customerName);
             upcomingAppointments.add(upcomingAppointment);
         }
+    }
 
+    public static ObservableList<Appointment> apptsByMonth = FXCollections.observableArrayList();
+    public static void countByMonth() throws SQLException {
+        String sql = "SELECT CAST(MONTHNAME(Start) AS CHAR) AS Month,COUNT(*) AS Appt_Count FROM appointments GROUP BY Month";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        apptsByMonth.clear();
+
+        while(rs.next()) {
+            String month = rs.getString("Month");
+            int count = rs.getInt("Appt_Count");
+
+            Appointment appt = new Appointment(month, count);
+            apptsByMonth.add(appt);
+        }
     }
 }
+

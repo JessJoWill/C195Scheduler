@@ -3,6 +3,7 @@ package Utilities;
 import DAO.JDBC;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import model.Appointment;
 import model.FirstLvlDivision;
 
 import java.sql.PreparedStatement;
@@ -115,5 +116,21 @@ public abstract class DivisionsQuery {
         }
         return canadaList;
 
+    }
+
+    public static ObservableList<FirstLvlDivision> custByRegion = FXCollections.observableArrayList();
+    public static void byRegion() throws SQLException {
+        String sql = "select Division, Country, COUNT(*) AS customerCount FROM (select p.Customer_ID, d.Division, c.Country from ((first_level_divisions as d left outer join customers as p on d.Division_ID = p.Division_ID) inner join countries as c on d.Country_ID = c.Country_ID) union select p.Customer_ID, d.Division, c.Country from ((first_level_divisions as d right outer join customers as p on d.Division_ID = p.Division_ID) inner join countries as c on d.Country_ID = c.Country_ID)) as j group by Division;";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        custByRegion.clear();
+        while (rs.next()) {
+            String division = rs.getString("Division");
+            String country = rs.getString("Country");
+            int customerCount = rs.getInt("customerCount");
+
+            FirstLvlDivision cbr = new FirstLvlDivision(division, country, customerCount);
+            custByRegion.add(cbr);
+        }
     }
 }

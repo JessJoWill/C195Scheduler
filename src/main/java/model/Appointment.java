@@ -11,13 +11,13 @@ public class Appointment {
     String type;
     LocalDateTime start;
     LocalDateTime end;
-    LocalDateTime createDate;
-    String createdBy;
     int customerId;
     int userId;
     int contactId;
     String userName;
     String customerName;
+    String month;
+    int count;
 
     // Add Appointment constructor
     public Appointment(String title, String description, String location, int contactId, String type, LocalDateTime start, LocalDateTime end, LocalDateTime createDate, int customerId, int userId) {
@@ -28,7 +28,6 @@ public class Appointment {
         this.type = type;
         this.start = start;
         this.end = end;
-        this.createDate = createDate;
         this.customerId = customerId;
         this.userId = userId;
     }
@@ -57,6 +56,24 @@ public class Appointment {
         this.customerName = customerName;
     }
 
+    public Appointment(String month, int count) {
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    public String getMonth() {
+        return month;
+    }
+
+    public void setMonth(String month) {
+        this.month = month;
+    }
     public int getApptId() {
         return apptId;
     }

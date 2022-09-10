@@ -36,7 +36,7 @@ import static Utilities.UsersQuery.userList;
 import static controller.LoginController.currentUserName;
 
 /**
- * Displays and controlls the main Customers screen.
+ * Displays and controls the main Customers screen.
  */
 public class CustomersController implements Initializable {
     public TextField customerSearchTxt;
@@ -65,7 +65,7 @@ public class CustomersController implements Initializable {
     public Button reportsBtn;
     ZonedDateTime plusFifteen;
     int currentUser;
-
+    public static boolean onLogin = false;
 
     private void checkSchedule() throws SQLException {
         AppointmentsQuery.upcomingSelect();
@@ -104,12 +104,14 @@ public class CustomersController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         try {
-            checkSchedule();
+            if(onLogin == false) {
+                checkSchedule();
+            }
+            onLogin = true;
             fillTable();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
 
         // Search functionality for customers table
         customerSearchTxt.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -290,6 +292,12 @@ public class CustomersController implements Initializable {
         primaryStage.show();
     }
 
-    public void toReports(ActionEvent actionEvent) {
+    public void toReports(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/customers-by-region-view.fxml")));
+        Stage primaryStage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root, 1000, 645);
+        primaryStage.setTitle("Scheduler");
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 }

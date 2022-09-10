@@ -57,6 +57,7 @@ public class AddModApptController implements Initializable {
     public ComboBox<User> usersCombo;
     public ToggleButton amBtn;
     public ToggleButton pmBtn;
+    public ToggleGroup amPmToggle;
     //Timezones
     String ampmPattern = "hh:mm";
     String ckpmPattern = "a";
