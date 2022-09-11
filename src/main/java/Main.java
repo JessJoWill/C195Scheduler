@@ -10,7 +10,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Objects;
-
+/**
+ * Javadoc can be found in the src/Javadoc folder.
+ */
 
 /**
  * An application for scheduling and storing customer information.

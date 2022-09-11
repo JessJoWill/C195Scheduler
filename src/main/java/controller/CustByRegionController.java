@@ -21,6 +21,9 @@ import java.util.ResourceBundle;
 
 import static Utilities.DivisionsQuery.*;
 
+/**
+ * Displays and controls the Customers By Region report screen.
+ */
 public class CustByRegionController implements Initializable {
 
     public TableView<FirstLvlDivision> customersByRegionTV;

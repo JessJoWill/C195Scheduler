@@ -3,6 +3,9 @@ package model;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
+/**
+ * Appointment class.
+ */
 public class Appointment {
     Integer apptId;
     String title;
@@ -19,7 +22,9 @@ public class Appointment {
     String str;
     int count;
 
-    // Add Appointment constructor
+    /**
+     * The constructor for adding appointments.
+      */
     public Appointment(String title, String description, String location, int contactId, String type, LocalDateTime start, LocalDateTime end, LocalDateTime createDate, int customerId, int userId) {
         this.title = title;
         this.description = description;
@@ -32,7 +37,19 @@ public class Appointment {
         this.userId = userId;
     }
 
-    // Constructor for table
+    /**
+     * The constructor for Appointments in the tableview.
+     * @param apptId
+     * @param title
+     * @param description
+     * @param location
+     * @param contactId
+     * @param type
+     * @param start
+     * @param end
+     * @param customerId
+     * @param userId
+     */
     public Appointment(int apptId, String title, String description, String location, int contactId, String type, LocalDateTime start, LocalDateTime end, int customerId, int userId) {
         this.apptId = apptId;
         this.title = title;
@@ -46,7 +63,16 @@ public class Appointment {
         this.userId = userId;
     }
 
-    // Constructor for upcoming appointments
+    /**
+     * The constructor for upcoming appointments.
+     * @param apptId
+     * @param title
+     * @param location
+     * @param start
+     * @param userId
+     * @param userName
+     * @param customerName
+     */
     public Appointment(int apptId, String title, String location, LocalDateTime start, int userId, String userName, String customerName) {
         this.apptId = apptId;
         this.title = title;
@@ -56,115 +82,131 @@ public class Appointment {
         this.customerName = customerName;
     }
 
+    /**
+     * The constructor for appointment counts by month and type.
+     * @param str Either the appointment type or the month, depending on which you're counting.
+     * @param count
+     */
     public Appointment(String str, int count) {
         this.str = str;
         this.count = count;
     }
 
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
-    }
-
+    /**
+     * Gets the appointment type or month, depending on which you're counting.
+     * @return String representing month or appointment type.
+     */
     public String getStr() {
         return str;
     }
 
-    public void setStr(String str) {
-        this.str = str;
-    }
+    /**
+     * @return Appointment ID.
+     */
     public Integer getApptId() {
         return apptId;
     }
 
+    /**
+     * @return appointment title.
+     */
     public String getTitle() {
         return title;
     }
 
+    /**
+     * Sets the title.
+     * @param title
+     */
     public void setTitle(String title) {
         this.title = title;
     }
 
+    /**
+     * @return appointment description.
+     */
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
+    /**
+     * @return the appointment location.
+     */
     public String getLocation() {
         return location;
     }
 
+    /**
+     * Set the location of the appointment.
+     * @param location
+     */
     public void setLocation(String location) {
         this.location = location;
     }
 
+    /**
+     * @return the appointment type.
+     */
     public String getType() {
         return type;
     }
 
+    /**
+     * Sets the appointment type.
+     * @param type
+     */
     public void setType(String type) {
         this.type = type;
     }
 
+    /**
+     * @return the appointment date and start time.
+     */
     public LocalDateTime getStart() {
         return start;
     }
 
+    /**
+     * Set the appointment date and start time.
+     * @param start
+     */
     public void setStart(LocalDateTime start) {
         this.start = start;
     }
 
+    /**
+     * @return the appointment date and end time.
+     */
     public LocalDateTime getEnd() {
         return end;
     }
 
-    public void setEnd(LocalDateTime end) {
-        this.end = end;
-    }
-
+    /**
+     * @return the customer ID.
+     */
     public int getCustomerId() {
         return customerId;
     }
 
+    /**
+     * Set the customer ID.
+     * @param customerId
+     */
     public void setCustomerId(int customerId) {
         this.customerId = customerId;
     }
 
+    /**
+     * @return the User ID.
+     */
     public int getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public int getContactId() {
-        return contactId;
-    }
-
-    public void setContactId(int contactId) {
-        this.contactId = contactId;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
+    /**
+     * @return the customer name.
+     */
     public String getCustomerName() {
         return customerName;
-    }
-
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
     }
 }

@@ -1,42 +1,29 @@
 package model;
 
-import javafx.scene.control.Alert;
-
 import java.sql.Date;
 
+/**
+ * Customer class.
+ */
 public class Customer {
     int customerId;
     String customerName;
     String address;
     String postalCode;
     String phone;
-    Date Create_Date;
-    String Created_By;
-    Date Last_Update;
-    String Last_Updated_By;
     String country;
     String division;
-
-
-
-    public String getDivision() {
-        return division;
-    }
-
-    public void setDivision(String division) {
-        this.division = division;
-    }
-
     int divisionId;
 
-    public String getCountry() {
-        return country;
-    }
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    // Add Customer Constructor
+    /**
+     * Constructor for adding new customers.
+     * @param customerName
+     * @param address
+     * @param divisionId
+     * @param postalCode
+     * @param country
+     * @param phone
+     */
     public Customer(String customerName, String address, int divisionId, String postalCode, String country, String phone) {
         this.customerName = customerName;
         this.address = address;
@@ -46,7 +33,16 @@ public class Customer {
         this.country = country;
     }
 
-    // TableCustomer Constructor
+    /**
+     * Constructor for adding customers to the tableview.
+     * @param customerId
+     * @param customerName
+     * @param address
+     * @param division
+     * @param postalCode
+     * @param country
+     * @param phone
+     */
     public Customer(int customerId, String customerName, String address, String division, String postalCode, String country, String phone) {
         this.customerId = customerId;
         this.customerName = customerName;
@@ -57,82 +53,83 @@ public class Customer {
         this.phone = phone;
     }
 
-    public Date getCreate_Date() {
-        return Create_Date;
+    /**
+     * @return the first level division.
+     */
+    public String getDivision() {
+        return division;
     }
 
-    public void setCreate_Date(Date create_Date) {
-        this.Create_Date = create_Date;
+    /**
+     * @return the country.
+     */
+    public String getCountry() {
+        return country;
     }
 
-    public String getCreated_By() {
-        return Created_By;
+    /**
+     * Set the country.
+     * @param country
+     */
+    public void setCountry(String country) {
+        this.country = country;
     }
 
-    public void setCreated_By(String created_By) {
-        this.Created_By = created_By;
-    }
-
-    public Date getLast_Update() {
-        return Last_Update;
-    }
-
-    public void setLast_Update(Date last_Update) {
-        this.Last_Update = last_Update;
-    }
-
-    public String getLast_Updated_By() {
-        return Last_Updated_By;
-    }
-
-    public void setLast_Updated_By(String last_Updated_By) {
-        this.Last_Updated_By = last_Updated_By;
-    }
-
+    /**
+     * @return customer ID
+     */
     public int getCustomerId() {
         return customerId;
     }
 
+    /**
+     * @return customer name
+     */
     public String getCustomerName() {
         return customerName;
     }
 
+    /**
+     * Set customer name.
+     * @param customerName
+     */
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
     }
 
+    /**
+     * @return customer address.
+     */
     public String getAddress() {
         return address;
     }
 
+    /**
+     * Set customer address.
+     * @param address
+     */
     public void setAddress(String address) {
         this.address = address;
     }
 
+    /**
+     * @return postal code.
+     */
     public String getPostalCode() {
         return postalCode;
     }
 
-    public void setPostalCode(String postalCode) {
-        this.postalCode = postalCode;
-    }
-
+    /**
+     * @return phone number.
+     */
     public String getPhone() {
         return phone;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public int getDivisionId() {
-        return divisionId;
-    }
-
-    public void setDivisionId(int divisionId) {
-        this.divisionId = divisionId;
-    }
-
+    /**
+     * Override the toString method to print customer information in a combobox in a readable format.
+     * @return readable string representing each customer.
+     */
     @Override
     public String toString() {
         return (customerId + " " + customerName);
