@@ -31,9 +31,12 @@ public class CustByRegionController implements Initializable {
     public Button contactApptBtn;
     public Button custApptBtn;
     public Button mainMenuBtn;
+
+    /**
+     * Runs queries to get all divisions and the customer count in each one, and fills the table with the information.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         try {
             getDivisions();
             byRegion();
@@ -47,6 +50,9 @@ public class CustByRegionController implements Initializable {
         numCustomersCol.setCellValueFactory(new PropertyValueFactory<>("customerCount"));
     }
 
+    /**
+     * Takes the user to the Contact Schedule report screen.
+     */
     public void toContactApptReport(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/contact-appt-report-view.fxml")));
         Stage primaryStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -56,6 +62,9 @@ public class CustByRegionController implements Initializable {
         primaryStage.show();
     }
 
+    /**
+     * Takes the user to the User Schedule report screen.
+     */
     public void toUserApptReport(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/user-appt-report-view.fxml")));
         Stage primaryStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -65,6 +74,9 @@ public class CustByRegionController implements Initializable {
         primaryStage.show();
     }
 
+    /**
+     * Takes the user to the Customer Appointments report screen.
+     */
     public void toCustApptReport(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/customer-appts-report-view.fxml")));
         Stage primaryStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -74,6 +86,9 @@ public class CustByRegionController implements Initializable {
         primaryStage.show();
     }
 
+    /**
+     * Takes the user back to the main Customers screen.
+     */
     public void onCancel(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/customers-view.fxml")));
         Stage primaryStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();

@@ -31,6 +31,9 @@ import static Utilities.AppointmentsQuery.userAppointments;
 import static Utilities.UsersQuery.getUsers;
 import static Utilities.UsersQuery.userList;
 
+/**
+ * Displays and controls the report screen for User Schedules.
+ */
 public class UserApptsReportController implements Initializable{
     public RadioButton allApptsRB;
     public RadioButton apptsByWeekRB;
@@ -74,7 +77,7 @@ public class UserApptsReportController implements Initializable{
     }
 
     /**
-     * Filters the User Appointments report to the current week.
+     * Filters the User Appointments report to one week from the current day.
      */
     public void filterByWeek(ActionEvent actionEvent) {
         weeksAppointments.clear();
@@ -90,7 +93,7 @@ public class UserApptsReportController implements Initializable{
     }
 
     /**
-     * Filters the User Appointments report to the current month.
+     * Filters the User Appointments report to one month from the current day.
      */
     public void filterByMonth(ActionEvent actionEvent) {
         monthsAppointments.clear();
@@ -126,7 +129,6 @@ public class UserApptsReportController implements Initializable{
         else{
             userApptsTableView.setItems(userAppointments);
             countLabel.setText(userAppointments.size() + " total appointments scheduled.");
-
         }
 
         // Populating the table views
@@ -142,6 +144,9 @@ public class UserApptsReportController implements Initializable{
         apptUserIdCol.setCellValueFactory(new PropertyValueFactory<>("userId"));
         }
 
+    /**
+     * Takes the user to the screen that holds the Customers By Region report. This is my choice for the third required report.
+     */
     public void toCustByRegion(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/customers-by-region-view.fxml")));
         Stage primaryStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -151,6 +156,9 @@ public class UserApptsReportController implements Initializable{
         primaryStage.show();
     }
 
+    /**
+     * Takes the user to the screen that olds the Contact Schedule report.
+     */
     public void toContactApptReport(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/contact-appt-report-view.fxml")));
         Stage primaryStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -160,6 +168,9 @@ public class UserApptsReportController implements Initializable{
         primaryStage.show();
     }
 
+    /**
+     * Takes the user to the screen that holds the Customer Appointments report.
+     */
     public void toCustApptReport(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/customer-appts-report-view.fxml")));
         Stage primaryStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -170,7 +181,7 @@ public class UserApptsReportController implements Initializable{
     }
 
     /**
-     * Returns the user to the Customers screen.
+     * Returns the user to the main Customers screen.
      */
     public void onCancel(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/customers-view.fxml")));

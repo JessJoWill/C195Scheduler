@@ -101,18 +101,26 @@ public class CustomerApptsController implements Initializable {
     public void onModifyAppt(ActionEvent actionEvent) throws IOException {
         apptAddMod = "mod";
         selectedAppointment = customerApptsTableView.getSelectionModel().getSelectedItem();
+        if(selectedAppointment == null){
+            Alert noSelection = new Alert(Alert.AlertType.ERROR);
+            noSelection.setTitle("Modify Error");
+            noSelection.setContentText("You have not selected an appointment to modify.");
+            noSelection.showAndWait();
+        }
+        else{
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/add-mod-appt-view.fxml")));
+            Stage primaryStage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root, 1000, 645);
+            primaryStage.setTitle("Scheduler");
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        }
 
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/add-mod-appt-view.fxml")));
-        Stage primaryStage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root, 1000, 645);
-        primaryStage.setTitle("Scheduler");
-        primaryStage.setScene(scene);
-        primaryStage.show();
 
     }
 
     /**
-     * Gets confirmation from the user before canceling an appointment, and shows confirmation afterward.
+     * Gets confirmation from the user before canceling an appointment, and shows confirmation afterward. The cancelApptAlert contains a lambda expression that was used to condense the showAndWait response check.
      */
     public void onDeleteAppt(ActionEvent actionEvent) {
         Appointment selectedAppointment = customerApptsTableView.getSelectionModel().getSelectedItem();
@@ -125,20 +133,18 @@ public class CustomerApptsController implements Initializable {
         else {
             Alert cancelApptAlert = new Alert(Alert.AlertType.CONFIRMATION);
             cancelApptAlert.setTitle("Confirm Delete");
-            cancelApptAlert.setContentText("Are you sure you want to cancel " + selectedAppointment.getApptId() + " " + selectedAppointment.getType() + "?");
-            cancelApptAlert.showAndWait().ifPresent(response -> {
-                if (response == ButtonType.OK) {
+            cancelApptAlert.setContentText("Are you sure you want to cancel appointment #" + selectedAppointment.getApptId() + " " + selectedAppointment.getType() + "?");
+            cancelApptAlert.showAndWait().filter(response -> response == ButtonType.OK).ifPresent(response -> {
                     try {
                         AppointmentsQuery.delete(selectedAppointment.getApptId());
                         fillApptTable();
                         Alert customerDeleted = new Alert(Alert.AlertType.INFORMATION);
                         customerDeleted.setTitle("Cancel Successful");
-                        customerDeleted.setContentText(selectedAppointment.getApptId() + " has been deleted.");
+                        customerDeleted.setContentText("Appointment #" + selectedAppointment.getApptId() + " has been deleted.");
                         customerDeleted.showAndWait();
                     } catch (SQLException e) {
                         throw new RuntimeException(e);
                     }
-                }
             });
         }
     }
@@ -148,18 +154,6 @@ public class CustomerApptsController implements Initializable {
      */
     public void toCustomerScreen(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/customers-view.fxml")));
-        Stage primaryStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root, 1000, 645);
-        primaryStage.setTitle("Scheduler");
-        primaryStage.setScene(scene);
-        primaryStage.show();
-    }
-
-    /**
-     * Takes the user to the Reports screen.
-     */
-    public void toReports(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/user-appt-report-view.fxml")));
         Stage primaryStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(root, 1000, 645);
         primaryStage.setTitle("Scheduler");

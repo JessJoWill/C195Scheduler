@@ -11,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.Appointment;
 import model.Customer;
@@ -63,6 +64,7 @@ public class CustomersController implements Initializable {
     public static String selectedDivName;
     public static String addMod = "";
     public Button reportsBtn;
+    public AnchorPane anchor;
     ZonedDateTime plusFifteen;
     int currentUser;
     public static boolean onLogin = false;
@@ -98,7 +100,7 @@ public class CustomersController implements Initializable {
     }
 
     /**
-     * Runs the method to check a user's upcoming appointments and to fill the customers table view, and adds the functionality to the search bar.
+     * Runs the method to check a user's upcoming appointments and to fill the customers table view, and adds the functionality to the search bar. ** Contains a lambda expression that adds a listener to the search text field. The lambda was used to make the code easier to read and more condensed.
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -113,7 +115,7 @@ public class CustomersController implements Initializable {
             throw new RuntimeException(e);
         }
 
-        // Search functionality for customers table
+        // Search functionality for customers table.
         customerSearchTxt.textProperty().addListener((observable, oldValue, newValue) -> {
             if(!(newValue.isEmpty())) {
                 String t = customerSearchTxt.getText();
@@ -292,6 +294,9 @@ public class CustomersController implements Initializable {
         primaryStage.show();
     }
 
+    /**
+     * Takes the user specifically to the Customers By Region report screen, but each report screen has buttons that will run the other available reports.
+     */
     public void toReports(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/customers-by-region-view.fxml")));
         Stage primaryStage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();

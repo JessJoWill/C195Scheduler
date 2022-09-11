@@ -9,10 +9,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Queries run on the contacts table.
+ */
 public abstract class ContactsQuery {
     private static boolean notYetContacts = true;
-
     public static ObservableList<Contact> contactList = FXCollections.observableArrayList();
+
+    /**
+     * Selects all fields and records from the contacts table and populates an ObservableList with the results.
+     * @throws SQLException
+     */
     public static ObservableList<Contact> getContacts() throws SQLException {
         String sql = "SELECT * FROM contacts";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
@@ -32,6 +39,5 @@ public abstract class ContactsQuery {
             contactList.add(aContact);
         }
         return contactList;
-
     }
 }

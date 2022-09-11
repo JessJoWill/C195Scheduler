@@ -9,35 +9,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-
-
+/**
+ * Queries run on the countries table.
+ */
 public abstract class CountriesQuery {
     private static boolean notYetCountry = true;
 
-    public static int insert(String country) throws SQLException {
-        String sql = "INSERT INTO countries (Country) VALUES (?)";
-        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
-        ps.setString(1, country);
-        int rowsAffected = ps.executeUpdate();
-        return rowsAffected;
-    }
-
-    public static int update(String country) throws SQLException {
-        String sql = "UPDATE countries SET Country = ? WHERE Country_ID = ?";
-        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
-        ps.setString(1, country);
-        int rowsAffected = ps.executeUpdate();
-        return rowsAffected;
-    }
-
-    public static int delete(int countryId) throws SQLException {
-        String sql = "DELETE FROM countries WHERE Country_ID = ?";
-        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
-        ps.setInt(1, countryId);
-        int rowsAffected = ps.executeUpdate();
-        return rowsAffected;
-    }
-
+    /**
+     * Selects all fields and records from the countries table.
+     * @throws SQLException
+     */
     public static void select() throws SQLException {
         String sql = "SELECT * FROM countries";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
@@ -50,6 +31,11 @@ public abstract class CountriesQuery {
     }
 
     public static ObservableList<TheCountry> countryList = FXCollections.observableArrayList();
+
+    /**
+     * Selects all fields and records from the countries table and populates an ObservableList with the results.
+     * @throws SQLException
+     */
     public static ObservableList<TheCountry> getCountries() throws SQLException {
         String sql = "SELECT * FROM countries";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);

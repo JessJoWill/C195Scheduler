@@ -8,6 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.Appointment;
 import model.Contact;
@@ -58,6 +59,7 @@ public class AddModApptController implements Initializable {
     public ToggleButton amBtn;
     public ToggleButton pmBtn;
     public ToggleGroup amPmToggle;
+    public AnchorPane anchor;
     //Timezones
     String ampmPattern = "hh:mm";
     String ckpmPattern = "a";
@@ -82,25 +84,13 @@ public class AddModApptController implements Initializable {
             customerListCombo.setItems(tableCustomers);
             apptContactList.setItems(contactList);
             usersCombo.setItems(userList);
+
             // For Add New Appointment
             if (Objects.equals(CustomerApptsController.apptAddMod, "add")){
                 newUpdatedApptLbl.setText("Create Appointment"); //Heading
                 apptIdLbl.setVisible(false); //Hide Appointment ID
-
-                /*/*********************************************************************************
-                // FOR TESTING
-                //*********************************************************************************
-                apptTitleTxt.setText("TestTitle");
-                apptDescriptionTxt.setText("TestDescription");
-                apptLocationTxt.setText("TestLocation");
-                apptContactList.getSelectionModel().select(0);
-                apptTypeTxt.setText("TestType");
-                customerListCombo.getSelectionModel().select(0);
-                usersCombo.getSelectionModel().select(0);
-                LocalDate testDate = LocalDate.parse("2000-01-01");
-                apptDatePicker.setValue(testDate);
-                //********************************************************************************/
             }
+
             // For Modify Existing Appointment
             if (Objects.equals(CustomerApptsController.apptAddMod, "mod")){
                 newUpdatedApptLbl.setText("Update Appointment"); //Heading
@@ -143,7 +133,6 @@ public class AddModApptController implements Initializable {
             if(apptIdLbl.isVisible()){
                 currentApptId = Integer.parseInt(apptIdValueLbl.getText());
             }
-            System.out.println(currentApptId);
             String title = apptTitleTxt.getText();
             String description = apptDescriptionTxt.getText();
             String location = apptLocationTxt.getText();
@@ -229,7 +218,10 @@ public class AddModApptController implements Initializable {
                 primaryStage.show();
             }
         }catch(Exception e){
-            e.printStackTrace();
+            Alert numberFormat = new Alert(Alert.AlertType.ERROR);
+            numberFormat.setTitle("Input Formatting Error");
+            numberFormat.setContentText("Please ensure that all number fields contain only numbers and that the Appointment Start Time is entered as HH:MM");
+            numberFormat.showAndWait();
         }
     }
 
@@ -250,23 +242,14 @@ public class AddModApptController implements Initializable {
      */
     private boolean checkOverlap() throws SQLException {
         boolean result = true;
-        System.out.println("Running checkOverlap");
         selCustomerId = customerListCombo.getSelectionModel().getSelectedItem().getCustomerId();
         AppointmentsQuery.selectAll();
         for (Appointment appointment : allAppointments) {
             if(appointment.getApptId() != currentApptId) {
 
-                System.out.println(appointment.getStart() + ": Start from DB");
-
                 ZonedDateTime scheduledStart = ZonedDateTime.of(appointment.getStart(), utcZone);
 
-                System.out.println(scheduledStart + ": scheduledStart");
-
                 ZonedDateTime scheduledEnd = ZonedDateTime.of(appointment.getEnd(), utcZone);
-
-                System.out.println(scheduledEnd + ": scheduledEnd");
-                System.out.println(utcStart + ": utcStart");
-                System.out.println(utcEnd + ": utcEnd");
 
                 if ((utcStart.isAfter(scheduledStart) || utcStart.equals(scheduledStart)) && utcStart.isBefore(scheduledEnd) || (utcEnd.isAfter(scheduledStart) && (utcEnd.isBefore(scheduledEnd) || utcEnd.equals(scheduledEnd))) || ((utcStart.isBefore(scheduledStart) || utcStart.equals(scheduledStart)) && (utcEnd.isAfter(scheduledEnd) || utcEnd.equals(scheduledEnd)))) {
                     Alert overlap = new Alert(Alert.AlertType.ERROR);

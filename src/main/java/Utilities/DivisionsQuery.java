@@ -3,45 +3,29 @@ package Utilities;
 import DAO.JDBC;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import model.Appointment;
 import model.FirstLvlDivision;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Queries run primarily on the first_level_divisions table.
+ */
 public abstract class DivisionsQuery {
     private static boolean notYetDivision = true;
-    public static int insert(String division) throws SQLException {
-        String sql = "INSERT INTO first_level_divisions (Division) VALUES (?)";
-        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
-        ps.setString(1, division);
-        int rowsAffected = ps.executeUpdate();
-        return rowsAffected;
-    }
 
-    public static int update(String division) throws SQLException {
-        String sql = "UPDATE first_level_divisions SET Division = ? WHERE Division_ID = ?";
-        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
-        ps.setString(1, division);
-        int rowsAffected = ps.executeUpdate();
-        return rowsAffected;
-    }
-
-    public static int delete(int divisionId) throws SQLException {
-        String sql = "DELETE FROM first_level_divisions WHERE Division_ID = ?";
-        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
-        ps.setInt(1, divisionId);
-        int rowsAffected = ps.executeUpdate();
-        return rowsAffected;
-    }
-
+    /**
+     * Selects all fields and records from the first_level_divisions table.
+     *
+     * @throws SQLException
+     */
     public static void select() throws SQLException {
         String sql = "SELECT * FROM first_level_divisions";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
 
-        while(rs.next()){
+        while (rs.next()) {
             int divisionId = rs.getInt("Division_ID");
             String division = rs.getString("Division");
         }
@@ -52,11 +36,16 @@ public abstract class DivisionsQuery {
     public static ObservableList<FirstLvlDivision> ukList = FXCollections.observableArrayList();
     public static ObservableList<FirstLvlDivision> canadaList = FXCollections.observableArrayList();
 
+    /**
+     * Selects all fields and records from the first_level_divisions table, and populates an ObservableList with the results.
+     *
+     * @throws SQLException
+     */
     public static ObservableList<FirstLvlDivision> getDivisions() throws SQLException {
         String sql = "SELECT * FROM first_level_divisions";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
-        if (!notYetDivision){
+        if (!notYetDivision) {
             return null;
         }
         notYetDivision = false;
@@ -70,8 +59,13 @@ public abstract class DivisionsQuery {
             divisionList.add(aDivision);
         }
         return divisionList;
-
     }
+
+    /**
+     * Selects all records from the first_level_divisions table where the country is the US, and populates an ObservableList with the results.
+     *
+     * @throws SQLException
+     */
     public static ObservableList<FirstLvlDivision> getUSDivisions() throws SQLException {
         String sql = "SELECT * FROM first_level_divisions WHERE Country_ID = 1";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
@@ -85,8 +79,13 @@ public abstract class DivisionsQuery {
             usList.add(aDivision);
         }
         return usList;
-
     }
+
+    /**
+     * Selects all records from the first_level_divisions table where the country is the UK, and populates an ObservableList with the results.
+     *
+     * @throws SQLException
+     */
     public static ObservableList<FirstLvlDivision> getUKDivisions() throws SQLException {
         String sql = "SELECT * FROM first_level_divisions WHERE Country_ID = 2";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
@@ -100,8 +99,13 @@ public abstract class DivisionsQuery {
             ukList.add(aDivision);
         }
         return ukList;
-
     }
+
+    /**
+     * Selects all records from the first_level_divisions table where the country is Canada, and populates an ObservableList with the results.
+     *
+     * @throws SQLException
+     */
     public static ObservableList<FirstLvlDivision> getCanadaDivisions() throws SQLException {
         String sql = "SELECT * FROM first_level_divisions WHERE Country_ID = 3";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
@@ -115,19 +119,21 @@ public abstract class DivisionsQuery {
             canadaList.add(aDivision);
         }
         return canadaList;
-
     }
 
+    /**
+     * Selects all records from the first_level_divisions table, and adds information from the countries table and the customers table, counting the number of customers from each division.
+     */
     public static ObservableList<FirstLvlDivision> custByRegion = FXCollections.observableArrayList();
     public static void byRegion() throws SQLException {
-        String sql = "select Division, Country, COUNT(*) AS customerCount FROM (select p.Customer_ID, d.Division, c.Country from ((first_level_divisions as d left outer join customers as p on d.Division_ID = p.Division_ID) inner join countries as c on d.Country_ID = c.Country_ID) union select p.Customer_ID, d.Division, c.Country from ((first_level_divisions as d right outer join customers as p on d.Division_ID = p.Division_ID) inner join countries as c on d.Country_ID = c.Country_ID)) as j group by Division;";
+        String sql = "SELECT d.Division, c.Country, IFNULL(COUNT(p.Customer_ID), 0) AS Customer_Count FROM first_level_divisions d LEFT JOIN customers AS p ON d.Division_ID = p.Division_ID INNER JOIN countries AS c ON d.Country_ID = c.Country_ID GROUP BY d.Division;";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
         custByRegion.clear();
         while (rs.next()) {
             String division = rs.getString("Division");
             String country = rs.getString("Country");
-            int customerCount = rs.getInt("customerCount");
+            int customerCount = rs.getInt("Customer_Count");
 
             FirstLvlDivision cbr = new FirstLvlDivision(division, country, customerCount);
             custByRegion.add(cbr);

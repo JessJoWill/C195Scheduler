@@ -3,40 +3,21 @@ package Utilities;
 import DAO.JDBC;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import model.TheCountry;
 import model.User;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Queries run on the users table.
+ */
 public abstract class UsersQuery {
-    public static int insert(String userName, String password) throws SQLException {
-        String sql = "INSERT INTO users (User_Name, Password) VALUES (?, ?)";
-        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
-        ps.setString(1, userName);
-        ps.setString(2, password);
-        int rowsAffected = ps.executeUpdate();
-        return rowsAffected;
-    }
 
-    public static int update(String userName, String password) throws SQLException {
-        String sql = "UPDATE users SET User_Name = ?, Password = ? WHERE User_ID = ?";
-        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
-        ps.setString(1, userName);
-        ps.setString(2, password);
-        int rowsAffected = ps.executeUpdate();
-        return rowsAffected;
-    }
-
-    public static int delete(int userId) throws SQLException {
-        String sql = "DELETE FROM users WHERE User_ID = ?";
-        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
-        ps.setInt(1, userId);
-        int rowsAffected = ps.executeUpdate();
-        return rowsAffected;
-    }
-
+    /**
+     * Selects all fields from the users table.
+     * @throws SQLException
+     */
     public static void select() throws SQLException {
         String sql = "SELECT * FROM users";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
@@ -51,6 +32,11 @@ public abstract class UsersQuery {
 
     public static ObservableList<User> userList = FXCollections.observableArrayList();
     private static boolean notYetUsers = true;
+
+    /**
+     * Selects all fields from the users table, and populates an Observable list with the results.
+     * @throws SQLException
+     */
     public static ObservableList<User> getUsers() throws SQLException {
         UsersQuery.select();
         String sql = "SELECT * FROM users";
@@ -71,6 +57,5 @@ public abstract class UsersQuery {
             userList.add(theUser);
         }
         return userList;
-
     }
 }

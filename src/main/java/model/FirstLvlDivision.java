@@ -21,6 +21,7 @@ public class FirstLvlDivision {
         this.customerCount = customerCount;
     }
 
+    // Constructor for Customers by Region
     public FirstLvlDivision(String division, String country, int customerCount) {
         this.division = division;
         this.country = country;

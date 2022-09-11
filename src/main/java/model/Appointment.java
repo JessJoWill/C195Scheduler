@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 public class Appointment {
-    int apptId;
+    Integer apptId;
     String title;
     String description;
     String location;
@@ -16,7 +16,7 @@ public class Appointment {
     int contactId;
     String userName;
     String customerName;
-    String month;
+    String str;
     int count;
 
     // Add Appointment constructor
@@ -56,7 +56,9 @@ public class Appointment {
         this.customerName = customerName;
     }
 
-    public Appointment(String month, int count) {
+    public Appointment(String str, int count) {
+        this.str = str;
+        this.count = count;
     }
 
     public int getCount() {
@@ -67,14 +69,14 @@ public class Appointment {
         this.count = count;
     }
 
-    public String getMonth() {
-        return month;
+    public String getStr() {
+        return str;
     }
 
-    public void setMonth(String month) {
-        this.month = month;
+    public void setStr(String str) {
+        this.str = str;
     }
-    public int getApptId() {
+    public Integer getApptId() {
         return apptId;
     }
 

@@ -8,6 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.TheCountry;
 import model.FirstLvlDivision;
@@ -42,6 +43,7 @@ public class AddModCustomerController implements Initializable {
     public ComboBox<User> userCombo;
     public Label indexLbl;
     public Label customerIdValueLbl;
+    public AnchorPane anchor;
 
     /**
      * Populates combo boxes and selects appropriate labels for Adding or Modifying customers.
@@ -61,6 +63,7 @@ public class AddModCustomerController implements Initializable {
             }
             if (Objects.equals(CustomersController.addMod, "mod")) {
                 addModifyCustomerLbl.setText("Update Customer Record");
+                customerIdLbl.setVisible(true);
             }
         }
         catch (SQLException e) {
@@ -72,16 +75,16 @@ public class AddModCustomerController implements Initializable {
      * Updates the first division combobox list based on the chosen country.
      */
     public void filterFirstDiv(ActionEvent actionEvent) throws SQLException {
-            if (countryCombo.getSelectionModel().getSelectedItem().getCountryId() == 1) {
-                getUSDivisions();
-                firstDivCombo.setItems(usList);
-            } else if (countryCombo.getSelectionModel().getSelectedItem().getCountryId() == 2) {
-                getUKDivisions();
-                firstDivCombo.setItems(ukList);
-            } else if (countryCombo.getSelectionModel().getSelectedItem().getCountryId() == 3) {
-                getCanadaDivisions();
-                firstDivCombo.setItems(canadaList);
-            }
+        if (countryCombo.getSelectionModel().getSelectedItem().getCountryId() == 1) {
+            getUSDivisions();
+            firstDivCombo.setItems(usList);
+        } else if (countryCombo.getSelectionModel().getSelectedItem().getCountryId() == 2) {
+            getUKDivisions();
+            firstDivCombo.setItems(ukList);
+        } else if (countryCombo.getSelectionModel().getSelectedItem().getCountryId() == 3) {
+            getCanadaDivisions();
+            firstDivCombo.setItems(canadaList);
+        }
     }
 
     /**
@@ -101,11 +104,11 @@ public class AddModCustomerController implements Initializable {
         int divisionId = firstDivCombo.getSelectionModel().getSelectedItem().getDivisionId();
         int rowsAffected;
         if(CustomersController.addMod.equals("add")) {
-            rowsAffected = CustomersQuery.insert(customerName, address, postalCode, phone, create_date, created_by, divisionId);
+            rowsAffected = CustomersQuery.insert(customerName, address, postalCode, phone, divisionId);
         }
         else{
             int customerId = Integer.parseInt(customerIdLbl.getText());
-            rowsAffected = CustomersQuery.update(customerName,address,postalCode,phone,last_updated,updatedBy,divisionId,customerId);
+            rowsAffected = CustomersQuery.update(customerName,address,postalCode,phone,divisionId,customerId);
         }
         if(rowsAffected == 0){
             System.out.println("Something went wrong.");
@@ -127,7 +130,7 @@ public class AddModCustomerController implements Initializable {
     }
 
     /**
-     * Returns the user to the main Customers screen
+     * Returns the user to the main Customers screen.
      */
     public void onCancel(ActionEvent actionEvent) throws IOException {
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/customers-view.fxml")));
@@ -149,7 +152,7 @@ public class AddModCustomerController implements Initializable {
      */
     public void fillForm(int selectedIndex, int customerId, String customerName, String address, String postalCode, String phone) {
         indexLbl.setText(String.valueOf(selectedIndex));
-        customerIdLbl.setText(String.valueOf(customerId));
+        customerIdValueLbl.setText(String.valueOf(customerId));
         customerNameTxt.setText(customerName);
         addressTxt.setText(address);
 
